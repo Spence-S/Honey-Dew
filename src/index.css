@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script');
+
+body{
+  margin: 20px;
+  background-color: #F5F5DC;
+}
+.fancy{
+  font-family: 'Dancing Script', cursive;
+  font-size: 10rem;
+  color: gold;
+}
+.btn{
+  border-radius: 0;
+}
+.btn-primary{
+  background-color: gold;
+}
