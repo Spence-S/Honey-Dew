@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import App from './App';
-import axios from 'axios';
+import { connect } from 'react-redux';
 
+import App from './App';
+import { loginUser } from '../actions/';
+import { bindActionCreators } from 'redux';
+
+import axios from 'axios';
 const { localStorage } = window;
 
 class Login extends Component{
@@ -11,14 +15,13 @@ class Login extends Component{
       showSignIn: true,
       emailText: '',
       passwordText: '',
-      retypePasswordText: '',
-      isLoggedIn: false
+      retypePasswordText: ''
     }
   }
 
   componentDidMount = () => {
     // If auth data is in local storage, assume log in, refresh to App
-    if (localStorage.getItem('x-auth')) this.setState({ isLoggedIn: true });
+    if (localStorage.getItem('x-auth')) this.props.loginUser();
   }
 
   sendFormData = (e) => {
@@ -44,7 +47,7 @@ class Login extends Component{
       const token = data.headers['x-auth'];
       localStorage.setItem('x-auth', token);
       console.log(data.headers);
-      this.setState({ isLoggedIn: true });
+      this.props.loginUser();
     })
     .catch(e => console.log(e));
   }
@@ -151,7 +154,7 @@ class Login extends Component{
   }
 
   render(){
-    if (!this.state.isLoggedIn) {
+    if (!this.props.login) {
       return (
         <div>
           { this.renderSignIn() }
@@ -168,4 +171,14 @@ class Login extends Component{
   }
 }
 
-export default Login;
+function mapStateToProps(state){
+  return { login: state.login }
+}
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({
+    loginUser: loginUser
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
