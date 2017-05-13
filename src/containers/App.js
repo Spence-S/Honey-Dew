@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+//import { connect } from 'react-redux';
 
 //import TodoForm from './TodoForm';
 import TodoListItem from './TodoListItem';
@@ -21,6 +22,7 @@ class App extends Component {
   }
 
 componentDidMount(){
+
   const headers = { 'x-auth': window.localStorage.getItem('x-auth') };
     axios.get(`https://mighty-falls-76862.herokuapp.com/api`, { headers })
       .then(
@@ -115,5 +117,7 @@ componentDidMount(){
     )
   }
 }
+
+
 
 export default App;

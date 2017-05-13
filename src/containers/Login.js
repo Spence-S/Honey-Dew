@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import App from './App';
-import { loginUser } from '../actions/';
+import { getUserId } from '../actions/';
 import { bindActionCreators } from 'redux';
 
 import axios from 'axios';
@@ -177,7 +177,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-    loginUser: loginUser
+    loginUser: getUserId
   }, dispatch)
 }
 

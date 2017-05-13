@@ -1,7 +1,9 @@
-import { LOGIN } from '../actions/';
+//import { combineReducers } from 'redux';
+import { LOGIN, GET_USER } from '../actions/';
 
 const initialState = {
- login: false
+ login: false,
+ user: {}
 }
 
 export default function login(state = initialState, action) {
@@ -11,6 +13,11 @@ export default function login(state = initialState, action) {
       ...state,
       login: true
     };
+    case GET_USER:
+    return{
+      ...state,
+      user: action.payload
+    }
     default:
     return state;
   }
