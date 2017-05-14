@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import App from './App';
-import { userLogin, getToken } from '../actions/';
+import * as actions from '../actions/auth_actions';
 import { bindActionCreators } from 'redux';
 
 import axios from 'axios';
@@ -27,6 +27,11 @@ class Login extends Component{
   sendFormData = (e) => {
     //on submit form prevent default first
     e.preventDefault();
+    this.props.loginUser({
+      email: this.state.emailText,
+      password: this.state.passwordText
+    });
+
 
     // //then figure out what form is being submitted
     // if (this.state.showSignIn){
@@ -155,7 +160,7 @@ class Login extends Component{
   }
 
   render(){
-    if (!this.props.isLoggedIn) {
+    if (!this.props.authState.isLoggedIn) {
       return (
         <div>
           { this.renderSignIn() }
@@ -173,13 +178,14 @@ class Login extends Component{
 }
 
 function mapStateToProps(state){
-  return { isLoggedIn: state.authState.isLoggedIn }
+  return { ...state }
+  //return { isLoggedIn: state.authState.isLoggedIn }
 }
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-    loginUser: getToken,
-
+    loginUser: actions.getToken,
+    logoutUser: actions.logout
   }, dispatch)
 }
 

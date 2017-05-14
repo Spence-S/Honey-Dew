@@ -27,6 +27,9 @@ class App extends Component {
 
 componentDidMount(){
   // const headers = { 'x-auth': window.localStorage.getItem('x-auth') };
+  console.log('state called from app component:', this.props.authState);
+
+
   console.log(this.props.todos);
   this.props.todoApiCall();
     // axios.get(`https://mighty-falls-76862.herokuapp.com/api`, { headers })
@@ -57,7 +60,6 @@ componentDidMount(){
   handleLogout = (e) => {
     e.preventDefault();
     window.localStorage.clear();
-    this.setState({ isLoggedIn: false })
   }
 
   handleChange = (e) => {
@@ -105,7 +107,7 @@ componentDidMount(){
         <div className="row">
           <div className="col-xs-12 col-sm-8 col-md-4">
             <ul className='list-group'>
-              {this.props.todos.map( todo => {
+              {this.props.todosState.list.map( todo => {
                 return(
                   <TodoListItem
                     key={todo._id}
@@ -124,9 +126,10 @@ componentDidMount(){
 }
 
 function mapStateToProps (state) {
-  return {
-    todos: state.todosState.list
-  }
+  return { ...state }
+  // return {
+  //   todos: state.todosState.list
+  // }
 }
 
 function mapDispatchToProps (dispatch) {
