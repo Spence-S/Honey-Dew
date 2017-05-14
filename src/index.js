@@ -9,14 +9,19 @@ import thunkMiddleware from 'redux-thunk';
 import logger from 'redux-logger'; // dev use!
 
 // styles
-import bootstrap from '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import css from './index.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
 
 // components
 import Login from './containers/Login';
-import reducers from './reducers/';
+import { rootReducer } from './reducers/';
 
-let store = createStore(reducers, applyMiddleware(thunkMiddleware, logger))
+let store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
+
+
+console.log(store.getState());
+
+
 
 ReactDOM.render(
   <Provider store={store}>

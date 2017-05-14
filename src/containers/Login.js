@@ -32,7 +32,7 @@ class Login extends Component{
       var endPoint = 'https://mighty-falls-76862.herokuapp.com/users/login';
     }
     else{
-      var endPoint = 'https://mighty-falls-76862.herokuapp.com/users';
+      endPoint = 'https://mighty-falls-76862.herokuapp.com/users';
       //validate password matching
       if(this.state.passwordText !== this.state.retypePasswordText){
         throw new Error('passwords do not match');
@@ -154,7 +154,7 @@ class Login extends Component{
   }
 
   render(){
-    if (!this.props.login) {
+    if (!this.props.isLoggedIn) {
       return (
         <div>
           { this.renderSignIn() }
@@ -172,7 +172,7 @@ class Login extends Component{
 }
 
 function mapStateToProps(state){
-  return { login: state.login }
+  return { isLoggedIn: state.loginState.isLoggedIn }
 }
 
 function mapDispatchToProps(dispatch){

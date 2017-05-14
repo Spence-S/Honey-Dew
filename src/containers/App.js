@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-//import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 //import TodoForm from './TodoForm';
 import TodoListItem from './TodoListItem';
-import EditableTodo from './EditableTodo';
+//import EditableTodo from './EditableTodo';
+
+// action creators
+import * as actions from '../actions/api';
 
 //css
-import css from './App.css'
+import './App.css'
 
 const headers = { 'x-auth': window.localStorage.getItem('x-auth') };
 
@@ -22,18 +26,19 @@ class App extends Component {
   }
 
 componentDidMount(){
-
-  const headers = { 'x-auth': window.localStorage.getItem('x-auth') };
-    axios.get(`https://mighty-falls-76862.herokuapp.com/api`, { headers })
-      .then(
-        todos => {
-          this.setState({todos: todos.data.todos});
-        }
-      ).catch(
-        err => {
-          console.log('there was an error', err);
-        }
-      );
+  // const headers = { 'x-auth': window.localStorage.getItem('x-auth') };
+  console.log(this.props.todos);
+  this.props.todoApiCall();
+    // axios.get(`https://mighty-falls-76862.herokuapp.com/api`, { headers })
+    //   .then(
+    //     todos => {
+    //       this.setState({todos: todos.data.todos});
+    //     }
+    //   ).catch(
+    //     err => {
+    //       console.log('there was an error', err);
+    //     }
+    //   );
     }
 
   refreshState = () => {
@@ -100,7 +105,7 @@ componentDidMount(){
         <div className="row">
           <div className="col-xs-12 col-sm-8 col-md-4">
             <ul className='list-group'>
-              {this.state.todos.map( todo => {
+              {this.props.todos.map( todo => {
                 return(
                   <TodoListItem
                     key={todo._id}
@@ -118,6 +123,14 @@ componentDidMount(){
   }
 }
 
+function mapStateToProps (state) {
+  return {
+    todos: state.todosState.list
+  }
+}
 
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({ ...actions }, dispatch);
+}
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
