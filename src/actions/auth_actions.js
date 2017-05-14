@@ -1,31 +1,39 @@
+import axios from 'axios';
+
 // types
 export const LOGIN = 'LOGIN';
-export const GET_USER = 'GET_USER';
+export const SET_TOKEN = 'SET_TOKEN';
 
-export function loginUser() {
+// action creators
+export const userLogin = () => {
   return {
     type: LOGIN
   }
 }
 
-export function getUser(data){
+export const setToken = (token) => {
   return {
-    type: GET_USER,
-    payload: data
+    type: SET_TOKEN,
+    payload: token
   }
 }
 
-export function getUserId () {
-  return {
-    type: LOGIN
+// thunk
+export const persistToken = (token) => {
+  return (dispatch) => {
+    window.localStorage.setItem('x-auth', token);
+    dispatch(setToken(token));
   }
-    // return function (dispatch) {
-    // axios.get(url, {headers: {"x-auth":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OTBmZDU3MGRjMjY5MzAwMTEyYTAyNTciLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDk0NDU4NTc0fQ.agtwDpUPV2KBND20W75xVpmrdM_XUpSY4ZXqjNQ_bXg"}})
-    //   .then( data => {
-    //     // console.log(data);
-    //     dispatch(getUser(data.data));
-    //     dispatch(loginUser());
-    //   })
-    //   .catch(e=> console.log(e));
-    // }
+}
+
+export const getToken = (data) => {
+  return async (dispatch) => {
+    if (window.localStorage.getItem('x-auth')) {
+      dispatch(userLogin())
+      return
+    }
+    let token = await axios.post('https://mighty-falls-76862.herokuapp.com/users/login', data);
+    token = token.headers['x-auth'];
+    dispatch(persistToken(token));
+  }
 }

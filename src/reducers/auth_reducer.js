@@ -1,22 +1,23 @@
-import { LOGIN } from '../actions/';
+import { LOGIN, SET_TOKEN } from '../actions/';
 
 const initialState = {
-  isLoggedIn: false
+  isLoggedIn: false,
+  token: '',
 }
 
-export default function loginState (state = initialState, action) {
+export default function authState (state = initialState, action) {
 
   switch( action.type ) {
     case LOGIN:
-    return{
+    return {
       ...state,
       isLoggedIn: true
     };
-    // case GET_USER:
-    // return{
-    //   ...state,
-    //   user: action.payload
-    // };
+    case SET_TOKEN:
+    return {
+      ...state,
+      token: action.payload
+    }
     default:
     return state;
   }

@@ -1,17 +1,21 @@
 import axios from 'axios';
-import {
-  GET_TODOS,
-  UPDATE_TODOS,
-  //UPDATE_TODO,
-  //EDIT_TODO,
-  //DELETE_TODO,
-  //GET_TODO,
-  //TODO_ERROR,
-  TODOS_ERROR
-}  from './types';
+
+// types
+export const GET_TODOS = 'GET_TODOS';
+export const GET_TODO = 'GET_TODO';
+export const DELETE_TODO = 'DELETE_TODO';
+export const CREATE_TODO = 'CREATE_TODO';
+export const EDIT_TODO = 'EDIT_TODO';
+export const UPDATE_TODO = 'UPDATE_TODO';
+export const UPDATE_TODOS = 'UPDATE_TODOS';
+export const AWAIT_UPDATE = 'AWAIT_UPDATE';
+export const TODOS_ERROR = 'TODOS_ERROR';
+export const TODO_ERROR = 'TODO_ERROR';
 
 // constants
 const url='https://mighty-falls-76862.herokuapp.com/';
+
+// temporary for development
 const headers = {headers: {"x-auth":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OTBmZDU3MGRjMjY5MzAwMTEyYTAyNTciLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDk0NDU4NTc0fQ.agtwDpUPV2KBND20W75xVpmrdM_XUpSY4ZXqjNQ_bXg"}};
 
 // action creators for getting todos

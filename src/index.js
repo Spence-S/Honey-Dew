@@ -14,14 +14,17 @@ import './index.css';
 
 // components
 import Login from './containers/Login';
-import { rootReducer } from './reducers/';
+import {rootReducer} from './reducers';
 
-let store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
-
+let store = createStore(
+  rootReducer,
+  applyMiddleware(
+    thunkMiddleware,
+    logger
+  )
+);
 
 console.log(store.getState());
-
-
 
 ReactDOM.render(
   <Provider store={store}>

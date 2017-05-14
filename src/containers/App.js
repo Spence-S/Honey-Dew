@@ -8,7 +8,7 @@ import TodoListItem from './TodoListItem';
 //import EditableTodo from './EditableTodo';
 
 // action creators
-import * as actions from '../actions/api';
+import * as actions from '../actions';
 
 //css
 import './App.css'

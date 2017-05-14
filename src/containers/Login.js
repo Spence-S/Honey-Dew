@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import App from './App';
-import { getUserId } from '../actions/';
+import { userLogin, getToken } from '../actions/';
 import { bindActionCreators } from 'redux';
 
 import axios from 'axios';
@@ -27,29 +27,30 @@ class Login extends Component{
   sendFormData = (e) => {
     //on submit form prevent default first
     e.preventDefault();
-    //then figure out what form is being submitted
-    if (this.state.showSignIn){
-      var endPoint = 'https://mighty-falls-76862.herokuapp.com/users/login';
-    }
-    else{
-      endPoint = 'https://mighty-falls-76862.herokuapp.com/users';
-      //validate password matching
-      if(this.state.passwordText !== this.state.retypePasswordText){
-        throw new Error('passwords do not match');
-      }
-    }
-    axios.post( endPoint, {
-      email: this.state.emailText,
-      password: this.state.passwordText
-    })
-    .then(data =>{
-      // save token to local storage
-      const token = data.headers['x-auth'];
-      localStorage.setItem('x-auth', token);
-      console.log(data.headers);
-      this.props.loginUser();
-    })
-    .catch(e => console.log(e));
+
+    // //then figure out what form is being submitted
+    // if (this.state.showSignIn){
+    //   var endPoint = 'https://mighty-falls-76862.herokuapp.com/users/login';
+    // }
+    // else{
+    //   endPoint = 'https://mighty-falls-76862.herokuapp.com/users';
+    //   //validate password matching
+    //   if(this.state.passwordText !== this.state.retypePasswordText){
+    //     throw new Error('passwords do not match');
+    //   }
+    // }
+    // axios.post( endPoint, {
+    //   email: this.state.emailText,
+    //   password: this.state.passwordText
+    // })
+    // .then(data =>{
+    //   // save token to local storage
+    //   const token = data.headers['x-auth'];
+    //   localStorage.setItem('x-auth', token);
+    //   console.log(data.headers);
+    //   this.props.loginUser();
+    // })
+    // .catch(e => console.log(e));
   }
 
   togglePage = (e) => {
@@ -172,12 +173,13 @@ class Login extends Component{
 }
 
 function mapStateToProps(state){
-  return { isLoggedIn: state.loginState.isLoggedIn }
+  return { isLoggedIn: state.authState.isLoggedIn }
 }
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-    loginUser: getUserId
+    loginUser: getToken,
+
   }, dispatch)
 }
 

@@ -1,5 +1,3 @@
-import authActions from './auth_actions';
-import todosActions from './todos_actions';
-
-export authActions
-export todosActions
+// Make exports available from folder
+export * from './auth_actions';
+export * from './todos_actions';

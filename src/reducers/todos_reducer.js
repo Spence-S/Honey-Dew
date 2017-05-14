@@ -1,4 +1,4 @@
-import { UPDATE_TODOS, GET_TODOS, TODOS_ERROR } from '../actions/types';
+import { UPDATE_TODOS, GET_TODOS, TODOS_ERROR } from '../actions';
 
 const initialState = {
   list: []
