@@ -1,4 +1,6 @@
 import axios from 'axios';
+import * as s from '../utils/storage';
+
 
 // types
 export const LOGIN = 'LOGIN';
@@ -25,10 +27,10 @@ export const setToken = (token) => {
   }
 }
 
-// thunk
+// thunks
 export const persistToken = (token) => {
   return (dispatch) => {
-    window.localStorage.setItem('x-auth', token);
+    s.setXAuth(token);
     dispatch(setToken(token));
     dispatch(userLogin());
   }
@@ -36,14 +38,16 @@ export const persistToken = (token) => {
 
 export const logout = () => {
   return (dispatch) => {
-    window.localStorage.clear();
+    s.clear();
     dispatch(userLogout());
   }
 }
 
 export const getToken = (data) => {
   return async (dispatch) => {
-    if (window.localStorage.getItem('x-auth')) {
+    // If auth data is in local storage, assume log in
+    if (s.checkXAuth()) {
+      dispatch(setToken(s.getXAuth()));
       dispatch(userLogin());
       return
     }

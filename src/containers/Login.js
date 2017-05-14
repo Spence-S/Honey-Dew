@@ -19,51 +19,12 @@ class Login extends Component{
     }
   }
 
-  componentDidMount = () => {
-    // If auth data is in local storage, assume log in, refresh to App
-    if (localStorage.getItem('x-auth')) this.props.loginUser();
-  }
-
   sendFormData = (e) => {
-    //on submit form prevent default first
     e.preventDefault();
-    this.props.loginUser({
+    this.props.getToken({
       email: this.state.emailText,
       password: this.state.passwordText
     });
-
-
-    // //then figure out what form is being submitted
-    // if (this.state.showSignIn){
-    //   var endPoint = 'https://mighty-falls-76862.herokuapp.com/users/login';
-    // }
-    // else{
-    //   endPoint = 'https://mighty-falls-76862.herokuapp.com/users';
-    //   //validate password matching
-    //   if(this.state.passwordText !== this.state.retypePasswordText){
-    //     throw new Error('passwords do not match');
-    //   }
-    // }
-    // axios.post( endPoint, {
-    //   email: this.state.emailText,
-    //   password: this.state.passwordText
-    // })
-    // .then(data =>{
-    //   // save token to local storage
-    //   const token = data.headers['x-auth'];
-    //   localStorage.setItem('x-auth', token);
-    //   console.log(data.headers);
-    //   this.props.loginUser();
-    // })
-    // .catch(e => console.log(e));
-  }
-
-  togglePage = (e) => {
-    e.preventDefault();
-    // show verify password and map buttons correctly
-    this.setState({
-      showSignIn: !this.state.showSignIn
-    })
   }
 
   renderSignIn = () =>
@@ -179,13 +140,13 @@ class Login extends Component{
 
 function mapStateToProps(state){
   return { ...state }
-  //return { isLoggedIn: state.authState.isLoggedIn }
 }
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-    loginUser: actions.getToken,
-    logoutUser: actions.logout
+    ...actions
+    // loginUser: actions.getToken,
+    // logoutUser: actions.logout
   }, dispatch)
 }
 

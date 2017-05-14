@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Spinner from 'react-spinner'
 
 //import TodoForm from './TodoForm';
 import TodoListItem from './TodoListItem';
@@ -25,41 +26,17 @@ class App extends Component {
     };
   }
 
-componentDidMount(){
-  // const headers = { 'x-auth': window.localStorage.getItem('x-auth') };
-  console.log('state called from app component:', this.props.authState);
-
-
-  console.log(this.props.todos);
-  this.props.todoApiCall();
-    // axios.get(`https://mighty-falls-76862.herokuapp.com/api`, { headers })
-    //   .then(
-    //     todos => {
-    //       this.setState({todos: todos.data.todos});
-    //     }
-    //   ).catch(
-    //     err => {
-    //       console.log('there was an error', err);
-    //     }
-    //   );
-    }
+  componentDidMount(){
+    this.props.todoApiCall();
+  }
 
   refreshState = () => {
-    axios.get(`https://mighty-falls-76862.herokuapp.com/api`, { headers })
-      .then(
-        todos => {
-          this.setState({todos: todos.data.todos});
-        }
-      ).catch(
-        err => {
-          console.log('there was an error', err);
-        }
-      );
+    this.props.todoApiCall();
   }
 
   handleLogout = (e) => {
     e.preventDefault();
-    window.localStorage.clear();
+    this.props.logout();
   }
 
   handleChange = (e) => {
@@ -106,6 +83,7 @@ componentDidMount(){
         {this.renderTodoForm()}
         <div className="row">
           <div className="col-xs-12 col-sm-8 col-md-4">
+            {this.props.todosState.list.length===0 ? <Spinner /> : null}
             <ul className='list-group'>
               {this.props.todosState.list.map( todo => {
                 return(

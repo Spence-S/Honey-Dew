@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as s from '../utils/storage';
 
 // types
 export const GET_TODOS = 'GET_TODOS';
@@ -14,9 +15,6 @@ export const TODO_ERROR = 'TODO_ERROR';
 
 // constants
 const url='https://mighty-falls-76862.herokuapp.com/';
-
-// temporary for development
-const headers = {headers: {"x-auth":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OTBmZDU3MGRjMjY5MzAwMTEyYTAyNTciLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDk0NDU4NTc0fQ.agtwDpUPV2KBND20W75xVpmrdM_XUpSY4ZXqjNQ_bXg"}};
 
 // action creators for getting todos
 export const getTodos = () => {
@@ -40,11 +38,11 @@ export const todosError = (e) => {
 };
 
 // api call thunk
-export const todoApiCall = (user) => {
+export const todoApiCall = () => {
  return async (dispatch) => {
    dispatch(getTodos());
    try{
-     let res = await axios.get(`${url}api`, headers);
+     let res = await axios.get(`${url}api`, s.getHeader());
      dispatch(updateTodos(res.data.todos));
    }
    catch(e){
@@ -52,3 +50,16 @@ export const todoApiCall = (user) => {
    }
   };
 };
+
+export const createTodo = (text) => {
+  return async (dispatch) => {
+    dispatch(getTodos());
+    try{
+      let res = await axios.post(`${url}api`, s.getHeader());
+      dispatch(updateTodos(res.data.todos));
+    }
+    catch(e){
+      dispatch(todosError());
+    }
+  };
+}
