@@ -16,6 +16,11 @@ export const TODO_ERROR = 'TODO_ERROR';
 // constants
 const url='https://mighty-falls-76862.herokuapp.com/';
 
+//helper
+const getToken = (getState) => {
+  return getState().authState.token;
+}
+
 // action creators for getting todos
 export const updateTodos = (todos) => {
   return {
@@ -32,20 +37,20 @@ export const todosError = (e) => {
 };
 
 // api call thunk
-export const todoApiCall = () => {
- return async (dispatch) => {
+export const todoApiCall = () => async (dispatch, getState) => {
+  const token = getToken(getState);
+  const header = { headers : { 'x-auth': token } };
    try{
-     let res = await axios.get(`${url}api`, s.getHeader());
+     let res = await axios.get(`${url}api`, header);
      dispatch(updateTodos(res.data.todos));
    }
    catch(e){
      dispatch(todosError());
    }
-  };
 };
 
-export const createTodo = (text) => {
-  return async (dispatch) => {
+
+export const createTodo = (text) => async (dispatch, getState) => {
     try{
       let res = await axios.post(`${url}api`, s.getHeader());
       dispatch(updateTodos(res.data.todos));
@@ -54,4 +59,3 @@ export const createTodo = (text) => {
       dispatch(todosError());
     }
   };
-}

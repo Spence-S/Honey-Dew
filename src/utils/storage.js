@@ -1,6 +1,7 @@
 
-export function checkXAuth  () {
-  if (window.localStorage.getItem('x-auth')) return true;
+export function checkXAuth  (getState) {
+  if(getState().auth.token) return true;
+
 }
 
 export function setXAuth  (token) {
@@ -17,7 +18,7 @@ export function getHeader   () {
   return { headers: { 'x-auth': token } };
 }
 
-export function clear   (){
+export function clear() {
   window.localStorage.clear();
   return;
 }
