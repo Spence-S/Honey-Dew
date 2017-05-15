@@ -47,7 +47,7 @@ export const getToken = (data) => {
   return async (dispatch) => {
     // If auth data is in local storage, assume log in
     if (s.checkXAuth()) {
-      dispatch(setToken(s.getXAuth()));
+      console.log('checking auth in getToken if may need to add a getState to thunk')
       dispatch(userLogin());
       return
     }

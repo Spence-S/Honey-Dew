@@ -16,13 +16,26 @@ import './index.css';
 import Login from './containers/Login';
 import {rootReducer} from './reducers';
 
+//heleprs
+import { loadState, saveState } from './utils/storage';
+
+// local storage persistence
+const persistedState = loadState();
+
+// createStore
 let store = createStore(
   rootReducer,
+  persistedState,
   applyMiddleware(
     thunkMiddleware,
     logger
   )
 );
+
+// save state changed in local storage
+store.subscribe(() => {
+  saveState(store.getState());
+});
 
 console.log(store.getState());
 

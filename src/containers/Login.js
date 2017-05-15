@@ -5,9 +5,6 @@ import App from './App';
 import * as actions from '../actions/auth_actions';
 import { bindActionCreators } from 'redux';
 
-import axios from 'axios';
-const { localStorage } = window;
-
 class Login extends Component{
   constructor(props){
     super(props);

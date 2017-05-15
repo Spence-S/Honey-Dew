@@ -26,9 +26,9 @@ class App extends Component {
     };
   }
 
-  componentDidMount(){
-    this.props.todoApiCall();
-  }
+  // componentDidMount(){
+  //   this.props.todoApiCall();
+  // }
 
   refreshState = () => {
     this.props.todoApiCall();
