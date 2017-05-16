@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 //import Spinner from 'react-spinner'
@@ -14,14 +14,14 @@ import * as actions from '../actions';
 //css
 import './App.css'
 
-const headers = { 'x-auth': window.localStorage.getItem('x-auth') };
+//const headers = { 'x-auth': window.localStorage.getItem('x-auth') };
 
 class App extends Component {
   constructor(props){
     super(props);
     this.headers = { 'x-auth': window.localStorage.getItem('x-auth') };
     this.state = {
-      todos: [],
+      //todos: [],
       formVal: ''
     };
   }
@@ -45,14 +45,16 @@ class App extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(`https://mighty-falls-76862.herokuapp.com/api`, {text: this.state.formVal}, { headers })
-      .then(payload => {
-        this.setState({formVal : ''})
-        this.refreshState();
-      })
-      .catch( e => {
-        console.log(e);
-      });
+    this.props.createTodoThunk(this.state.formVal);
+    this.setState({formVal : ''});
+    // axios.post(`https://mighty-falls-76862.herokuapp.com/api`, {text: this.state.formVal}, { headers })
+    //   .then(payload => {
+    //     this.setState({formVal : ''})
+    //     this.refreshState();
+    //   })
+    //   .catch( e => {
+    //     console.log(e);
+    //   });
   }
 
   renderTodoForm = () => {
@@ -93,6 +95,7 @@ class App extends Component {
                     index={index}
                     callBack={this.refreshState}
                     editTodo={this.props.editTodo}
+                    deleteTodo={this.props.deleteTodoThunk}
                   />
                 )
               })}

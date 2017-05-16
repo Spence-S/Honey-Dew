@@ -10,14 +10,9 @@ class TodoListItem extends Component{
     this.state={ editable: false };
   }
 
-  handleClick = () => {
-    axios.delete(`https://mighty-falls-76862.herokuapp.com/api/${this.props.id}`, { headers })
-      .then( (payload) => {
-        this.props.callBack();
-      })
-      .catch( (e) => {
-        console.log('there was an error', e)
-      });
+  handleClick = (e) => {
+    e.preventDefault();
+    this.props.deleteTodo(this.props.id, this.props.index);
   }
 
   handleEditClick = () => {

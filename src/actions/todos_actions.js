@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as s from '../utils/storage';
+//import * as s from '../utils/storage';
 
 // types
 export const GET_TODOS = 'GET_TODOS';
@@ -44,6 +44,21 @@ export const updateTodo = (todo, index) => {
   }
 }
 
+export const createTodo = (todo) => {
+  return {
+    type: CREATE_TODO,
+    payload:{ todo }
+  }
+}
+
+export const deleteTodo = (index) => {
+  return {
+    type: DELETE_TODO,
+    payload: index
+  }
+}
+
+
 // api call thunk
 export const updateList = () => async (dispatch, getState) => {
   const header = getHeader(getState);
@@ -57,24 +72,41 @@ export const updateList = () => async (dispatch, getState) => {
 };
 
 export const editTodo = (text, id, index) => async (dispatch, getState) => {
+  dispatch(updateTodo(text, index));
   const header = getHeader(getState);
     try{
-      let res = await axios.put(`${url}api/${id}`, {text} , header);
-      console.log('response in edit todo', res)
+      let res = await axios.put(`${url}api/${id}`, { text } , header);
+      //ensure syncing with api
       let todo = res.data;
-      dispatch(updateTodo(todo, index));
+      dispatch(updateTodo(todo.text, index));
     } catch (e) {
+      // if syncing did not occur, will handle errors at a later time
+      //
+      // TODO: handle errors better
+      //
       console.log(e);
     }
 }
 
 
-export const createTodo = (text) => async (dispatch, getState) => {
+export const createTodoThunk = (text) => async (dispatch, getState) => {
+    const header = getHeader(getState);
     try{
-      let res = await axios.post(`${url}api`, s.getHeader());
-      dispatch(updateTodos(res.data.todos));
+      let res = await axios.post(`${url}api`, { text }, header);
+      dispatch(createTodo(res.data));
     }
     catch(e){
-      dispatch(todosError());
+      dispatch(todosError(e));
     }
   };
+
+  export const deleteTodoThunk = ( _id, index ) =>  async (dispatch, getState) => {
+    dispatch(deleteTodo(index));
+    const header = getHeader(getState);
+    try {
+      let res = await axios.delete(`${url}api/${_id}`, header);
+      console.log(res);
+    } catch (e) {
+      dispatch(todosError(e));
+    }
+  }
