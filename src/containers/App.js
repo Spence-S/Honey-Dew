@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Spinner from 'react-spinner'
+//import Spinner from 'react-spinner'
 
 //import TodoForm from './TodoForm';
 import TodoListItem from './TodoListItem';
@@ -27,11 +27,11 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    this.props.todoApiCall();
+    this.props.updateList();
   }
 
   refreshState = () => {
-    this.props.todoApiCall();
+    this.props.updateList();
   }
 
   handleLogout = (e) => {
@@ -40,7 +40,7 @@ class App extends Component {
   }
 
   handleChange = (e) => {
-    this.setState({formVal: e.target.value})
+    this.setState({ formVal: e.target.value })
   }
 
   handleSubmit = (e) => {
@@ -83,15 +83,16 @@ class App extends Component {
         {this.renderTodoForm()}
         <div className="row">
           <div className="col-xs-12 col-sm-8 col-md-4">
-            {this.props.todosState.list.length===0 ? <Spinner /> : null}
             <ul className='list-group'>
-              {this.props.todosState.list.map( todo => {
+              {this.props.todosState.list.map( (todo, index) => {
                 return(
                   <TodoListItem
                     key={todo._id}
                     item={todo.text}
                     id={todo._id}
+                    index={index}
                     callBack={this.refreshState}
+                    editTodo={this.props.editTodo}
                   />
                 )
               })}

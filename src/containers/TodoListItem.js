@@ -32,7 +32,10 @@ class TodoListItem extends Component{
             text={this.props.item}
             todoListItemView={this.handleEditClick}
             id={this.props.id}
-            refreshState={this.props.callBack}/>
+            index={this.props.index}
+            refreshState={this.props.callBack}
+            editTodo={this.props.editTodo}
+          />
           :
 
             <li className='list-group-item'>

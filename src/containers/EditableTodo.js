@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
-
-const headers = { 'x-auth': window.localStorage.getItem('x-auth') };
 
 class EditableTodo extends Component{
   constructor(props){
@@ -12,14 +9,8 @@ class EditableTodo extends Component{
 
   handleSaveClick = (event) => {
     event.preventDefault();
-    axios.put(`https://mighty-falls-76862.herokuapp.com/api/${this.props.id}`, { text: this.state.value }, { headers })
-      .then( boom => {
-        this.props.todoListItemView();
-        this.props.refreshState();
-      })
-      .catch(err => {
-          console.log('there was an err', err);
-      });
+    this.props.editTodo(this.state.value, this.props.id, this.props.index);
+    this.props.todoListItemView();
   }
 
   handleCancelClick = (e) => {

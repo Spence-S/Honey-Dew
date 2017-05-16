@@ -17,9 +17,7 @@ export const TODO_ERROR = 'TODO_ERROR';
 const url='https://mighty-falls-76862.herokuapp.com/';
 
 //helper
-const getToken = (getState) => {
-  return getState().authState.token;
-}
+const getHeader = getState => ({ headers : { 'x-auth': getState().authState.token } });
 
 // action creators for getting todos
 export const updateTodos = (todos) => {
@@ -36,10 +34,19 @@ export const todosError = (e) => {
   }
 };
 
+export const updateTodo = (todo, index) => {
+  return {
+    type: UPDATE_TODO,
+    payload: {
+      index,
+      todo
+    }
+  }
+}
+
 // api call thunk
-export const todoApiCall = () => async (dispatch, getState) => {
-  const token = getToken(getState);
-  const header = { headers : { 'x-auth': token } };
+export const updateList = () => async (dispatch, getState) => {
+  const header = getHeader(getState);
    try{
      let res = await axios.get(`${url}api`, header);
      dispatch(updateTodos(res.data.todos));
@@ -48,6 +55,18 @@ export const todoApiCall = () => async (dispatch, getState) => {
      dispatch(todosError());
    }
 };
+
+export const editTodo = (text, id, index) => async (dispatch, getState) => {
+  const header = getHeader(getState);
+    try{
+      let res = await axios.put(`${url}api/${id}`, {text} , header);
+      console.log('response in edit todo', res)
+      let todo = res.data;
+      dispatch(updateTodo(todo, index));
+    } catch (e) {
+      console.log(e);
+    }
+}
 
 
 export const createTodo = (text) => async (dispatch, getState) => {

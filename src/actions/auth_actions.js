@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as s from '../utils/storage';
+//import * as s from '../utils/storage';
 
 
 // types
@@ -15,10 +15,10 @@ export const userLogin = (token) => {
   }
 }
 
-export const logout = () => (dispatch) => {
-  s.clear();
-  console.log("dispatch");
-  dispatch((() => ({ type: LOGOUT }))());
+export const logout = () => {
+  window.localStorage.clear();
+  //dispatch((() => ({ type: LOGOUT }))());
+  return { type: LOGOUT };
 }
 
 // thunks
