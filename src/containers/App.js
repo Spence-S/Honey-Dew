@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -62,37 +63,34 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        {this.renderTodoForm()}
-        <div className="row">
-          <div className="col-xs-12 col-sm-8 col-md-4">
-            <ul className='list-group'>
-              {this.props.todosState.list.map( (todo, index) => {
-                return(
-                  <TodoListItem
-                    key={todo._id}
-                    item={todo.text}
-                    id={todo._id}
-                    index={index}
-                    callBack={this.refreshState}
-                    editTodo={this.props.editTodo}
-                    deleteTodo={this.props.deleteTodoThunk}
-                  />
-                )
-              })}
-            </ul>
+        <div>
+          {this.renderTodoForm()}
+          <div className="row">
+            <div className="col-xs-12 col-sm-8 col-md-4">
+              <ul className='list-group'>
+                {this.props.todosState.list.map( (todo, index) => {
+                  return(
+                    <TodoListItem
+                      key={todo._id}
+                      item={todo.text}
+                      id={todo._id}
+                      index={index}
+                      callBack={this.refreshState}
+                      editTodo={this.props.editTodo}
+                      deleteTodo={this.props.deleteTodoThunk}
+                    />
+                  )
+                })}
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
     )
   }
 }
 
 function mapStateToProps (state) {
   return { ...state }
-  // return {
-  //   todos: state.todosState.list
-  // }
 }
 
 function mapDispatchToProps (dispatch) {

@@ -131,21 +131,21 @@ class Login extends Component{
   }
 
   render(){
-    if (!this.props.authState.isLoggedIn) {
+    // if (!this.props.authState.isLoggedIn) {
       return (
         <div>
           { this.renderSignIn() }
         </div>
       )
-    }
-    else{
-      return (
-        <App
-          logout={this.logout}
-        />
-      )
-    }
-  }
+  //   }
+  //   else{
+  //     return (
+  //       <App
+  //         logout={this.logout}
+  //       />
+  //     )
+  //   }
+   }
 }
 
 function mapStateToProps(state){
