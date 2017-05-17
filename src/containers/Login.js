@@ -9,6 +9,7 @@ class Login extends Component{
   constructor(props){
     super(props);
     this.state = {
+      showSignIn: true,
       emailText: '',
       passwordText: '',
       retypePasswordText: ''
@@ -17,10 +18,23 @@ class Login extends Component{
 
   sendFormData = (e) => {
     e.preventDefault();
-    this.props.getToken({
-      email: this.state.emailText,
-      password: this.state.passwordText
-    });
+    if(this.state.showSignIn){
+      this.props.getToken({
+        email: this.state.emailText,
+        password: this.state.passwordText
+      });
+    } else {
+      this.props.getNewUserToken({
+        email:this.state.emailText,
+        password: this.state.passwordText
+      })
+    }
+  }
+
+  togglePage = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.setState({showSignIn: !this.state.showSignIn});
   }
 
   renderSignIn = () =>
