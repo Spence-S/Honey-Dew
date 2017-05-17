@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-//import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-//import Spinner from 'react-spinner'
 
-//import TodoForm from './TodoForm';
 import TodoListItem from './TodoListItem';
-//import EditableTodo from './EditableTodo';
 
 // action creators
 import * as actions from '../actions';
@@ -14,23 +10,16 @@ import * as actions from '../actions';
 //css
 import './App.css'
 
-//const headers = { 'x-auth': window.localStorage.getItem('x-auth') };
-
 class App extends Component {
   constructor(props){
     super(props);
     this.headers = { 'x-auth': window.localStorage.getItem('x-auth') };
     this.state = {
-      //todos: [],
       formVal: ''
     };
   }
 
   componentDidMount = () => {
-    this.props.updateList();
-  }
-
-  refreshState = () => {
     this.props.updateList();
   }
 
@@ -47,14 +36,6 @@ class App extends Component {
     e.preventDefault();
     this.props.createTodoThunk(this.state.formVal);
     this.setState({formVal : ''});
-    // axios.post(`https://mighty-falls-76862.herokuapp.com/api`, {text: this.state.formVal}, { headers })
-    //   .then(payload => {
-    //     this.setState({formVal : ''})
-    //     this.refreshState();
-    //   })
-    //   .catch( e => {
-    //     console.log(e);
-    //   });
   }
 
   renderTodoForm = () => {

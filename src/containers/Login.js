@@ -9,7 +9,6 @@ class Login extends Component{
   constructor(props){
     super(props);
     this.state = {
-      showSignIn: true,
       emailText: '',
       passwordText: '',
       retypePasswordText: ''
@@ -142,8 +141,6 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
     ...actions
-    // loginUser: actions.getToken,
-    // logoutUser: actions.logout
   }, dispatch)
 }
 

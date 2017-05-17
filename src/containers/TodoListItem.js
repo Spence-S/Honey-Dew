@@ -2,8 +2,6 @@ import React,{ Component } from 'react';
 import axios from 'axios';
 import EditableTodo from './EditableTodo';
 
-const headers = { 'x-auth': window.localStorage.getItem('x-auth') };
-
 class TodoListItem extends Component{
   constructor(props){
     super(props);
