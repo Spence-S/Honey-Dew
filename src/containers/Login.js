@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import App from './App';
 import * as actions from '../actions/auth_actions';
 import { bindActionCreators } from 'redux';
+import FacebookLogin from 'react-facebook-login'
 
 class Login extends Component{
   constructor(props){
@@ -37,8 +37,12 @@ class Login extends Component{
     this.setState({showSignIn: !this.state.showSignIn});
   }
 
+  responseFacebook = (res) => {
+    console.log(res)
+  }
+
   renderSignIn = () =>
-    (
+    (<div>
       <form className="form-horizontal">
         <fieldset>
           <legend>{this.state.showSignIn ? "Login" : "Sign Up"}</legend>
@@ -110,6 +114,14 @@ class Login extends Component{
 
         </fieldset>
       </form>
+      <FacebookLogin
+      appId="1503702696325932"
+      autoLoad={true}
+      fields="name,email,picture, friends"
+      scope="public_profile,user_friends"
+      callback={this.responseFacebook}
+      />
+    </div>
     )
 
   renderVerifyPasswordInput = () => {
@@ -131,20 +143,23 @@ class Login extends Component{
   }
 
   render(){
-    // if (!this.props.authState.isLoggedIn) {
+    if(this.props.authState.isLoggedIn){
+      return (
+        <div>
+          <h1> You are logged in! </h1>
+          <button
+            className="btn btn-link"
+            onClick={() => this.props.logout()}
+            > logout </button>
+        </div>
+      )
+    } else {
       return (
         <div>
           { this.renderSignIn() }
         </div>
       )
-  //   }
-  //   else{
-  //     return (
-  //       <App
-  //         logout={this.logout}
-  //       />
-  //     )
-  //   }
+    }
    }
 }
 

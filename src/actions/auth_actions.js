@@ -39,3 +39,11 @@ export const getNewUserToken = (data) => async (dispatch, getState) => {
     console.log(e)
   }
 }
+
+export const getTokenWithFacebook = () => async (dispactch, getState) => {
+  try{
+    return
+  } catch(e) {
+    return
+  }
+}

@@ -61,29 +61,45 @@ class App extends Component {
     )
   }
 
+  renderTodoList = () => (
+    <div>
+      {this.renderTodoForm()}
+      <div className="row">
+        <div className="col-xs-12 col-sm-6 col-md-6">
+          <ul className='list-group'>
+            {this.props.todosState.list.map( (todo, index) => {
+              return(
+                <TodoListItem
+                  key={todo._id}
+                  item={todo.text}
+                  id={todo._id}
+                  index={index}
+                  callBack={this.refreshState}
+                  editTodo={this.props.editTodo}
+                  deleteTodo={this.props.deleteTodoThunk}
+                />
+              )
+            })}
+          </ul>
+        </div>
+        <div className="col-xs-0 col-sm-2 col-md-2 col-lg-2">
+
+        </div>
+        {this.renderAddFriendsBar()}
+      </div>
+    </div>
+  )
+
+  renderAddFriendsBar = () => (
+    <div className="col-xs-12 col-sm-4 text-center" >
+      <h2>Invite a friend!</h2>
+    </div>
+  )
+
   render() {
     return (
         <div>
-          {this.renderTodoForm()}
-          <div className="row">
-            <div className="col-xs-12 col-sm-8 col-md-4">
-              <ul className='list-group'>
-                {this.props.todosState.list.map( (todo, index) => {
-                  return(
-                    <TodoListItem
-                      key={todo._id}
-                      item={todo.text}
-                      id={todo._id}
-                      index={index}
-                      callBack={this.refreshState}
-                      editTodo={this.props.editTodo}
-                      deleteTodo={this.props.deleteTodoThunk}
-                    />
-                  )
-                })}
-              </ul>
-            </div>
-          </div>
+          {this.renderTodoList()}
         </div>
     )
   }

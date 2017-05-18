@@ -4193,6 +4193,10 @@ react-dom@^15.5.4:
     object-assign "^4.1.0"
     prop-types "~15.5.7"
 
+react-facebook-login@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/react-facebook-login/-/react-facebook-login-3.6.0.tgz#86cd8b561f9f53ef9aa7f3f7c21b66d0947d07c6"
+
 react-overlays@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-0.7.0.tgz#531898ff566c7e5c7226ead2863b8cf9fbb5a981"

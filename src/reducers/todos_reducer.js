@@ -33,8 +33,8 @@ export default function todosState (state = initialState, action){
       return {
         ...state,
         list: [
-          ...state.list.slice(0, payload.index-1),
-          ...state.list.slice(payload.index+1, state.list.length-1)
+          ...state.list.slice(0, payload),
+          ...state.list.slice(payload+1)
         ]
       }
     default:
