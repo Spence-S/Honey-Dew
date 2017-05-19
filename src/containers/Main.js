@@ -29,7 +29,7 @@ class Main extends Component {
           <Navbar fluid collapseOnSelect>
             <Navbar.Header>
               <Navbar.Brand>
-                <Link to="/">HoneyDew</Link>
+                <Link to="/"><div className="fancy small">HoneyDew</div></Link>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>

@@ -1,10 +1,6 @@
-.app-button{
-  border-radius: 0;
-  background-color: gold;
-  border-color: gold;
+.modal-container {
+  position: relative;
 }
-.app-button:hover{
-  border:0;
-  background-color: yellow;
-  border-color: yellow;
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
 }

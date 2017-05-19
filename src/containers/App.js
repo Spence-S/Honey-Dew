@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Modal, Button } from 'react-bootstrap';
 
 import TodoListItem from './TodoListItem';
 
@@ -16,7 +17,8 @@ class App extends Component {
     super(props);
     this.headers = { 'x-auth': window.localStorage.getItem('x-auth') };
     this.state = {
-      formVal: ''
+      formVal: '',
+      showModal: false,
     };
   }
 
@@ -41,9 +43,9 @@ class App extends Component {
 
   renderTodoForm = () => {
     return(
-      <div>
+      <div className="modal-container">
         <button className='btn btn-link pull-right' onClick={this.handleLogout}>logout</button>
-        <h1 className="fancy">Honey Dew:</h1>
+        <h1 className="fancy">My Todos:</h1>
         <form onSubmit={this.handleSubmit} className='row'>
           <div className='form-group col-xs-12 col-sm-8 col-md-4'>
             <div className='input-group'>
@@ -62,7 +64,7 @@ class App extends Component {
   }
 
   renderTodoList = () => (
-    <div>
+    <div className="modal-container">
       {this.renderTodoForm()}
       <div className="row">
         <div className="col-xs-12 col-sm-6 col-md-6">
@@ -92,14 +94,45 @@ class App extends Component {
 
   renderAddFriendsBar = () => (
     <div className="col-xs-12 col-sm-4 text-center" >
-      <h2>Invite a friend!</h2>
+      <button
+        className="btn btn-primary"
+        onClick={()=>this.setState({ showModal: !this.state.showModal })}
+        >
+        <h2>Invite a friend!</h2>
+      </button>
     </div>
+  )
+
+  modal = () => (
+      <Modal show={this.state.showModal} onHide={this.close} container={document.body}>
+
+        <Modal.Dialog>
+          <Modal.Header>
+            <Modal.Title>Modal title</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            One fine body...
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button>Close</Button>
+            <Button bsStyle="primary">Save changes</Button>
+          </Modal.Footer>
+
+        </Modal.Dialog>
+
+      </Modal>
   )
 
   render() {
     return (
-        <div>
+        <div className="modal-container">
+          {this.modal()}
+          <div className="modal-container">
           {this.renderTodoList()}
+
+          </div>
         </div>
     )
   }
