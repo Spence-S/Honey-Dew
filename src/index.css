@@ -12,3 +12,9 @@ body{
 .small{
   font-size: 4rem;
 }
+.modal-container {
+  position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
+}
