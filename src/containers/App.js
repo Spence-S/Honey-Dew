@@ -9,9 +9,6 @@ import TodoListItem from './TodoListItem';
 // action creators
 import * as actions from '../actions';
 
-//css
-import './App.css'
-
 class App extends Component {
   constructor(props){
     super(props);
@@ -64,7 +61,7 @@ class App extends Component {
   }
 
   renderTodoList = () => (
-    <div className="modal-container">
+    <div>
       {this.renderTodoForm()}
       <div className="row">
         <div className="col-xs-12 col-sm-6 col-md-6">
@@ -85,7 +82,6 @@ class App extends Component {
           </ul>
         </div>
         <div className="col-xs-0 col-sm-2 col-md-2 col-lg-2">
-
         </div>
         {this.renderAddFriendsBar()}
       </div>
@@ -98,15 +94,13 @@ class App extends Component {
         className="btn btn-primary"
         onClick={()=>this.setState({ showModal: !this.state.showModal })}
         >
-        <h2>Invite a friend!</h2>
+        Invite a friend!
       </button>
     </div>
   )
 
   modal = () => (
-      <Modal show={this.state.showModal} onHide={this.close} container={document.body}>
-
-        <Modal.Dialog>
+      <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false})} container={document.body}>
           <Modal.Header>
             <Modal.Title>Modal title</Modal.Title>
           </Modal.Header>
@@ -116,23 +110,17 @@ class App extends Component {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button>Close</Button>
+            <Button onClick={()=>this.setState({ showModal: false})}>Close</Button>
             <Button bsStyle="primary">Save changes</Button>
           </Modal.Footer>
-
-        </Modal.Dialog>
-
       </Modal>
   )
 
   render() {
     return (
-        <div className="modal-container">
+        <div>
           {this.modal()}
-          <div className="modal-container">
           {this.renderTodoList()}
-
-          </div>
         </div>
     )
   }

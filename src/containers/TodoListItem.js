@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import EditableTodo from './EditableTodo';
+import EditableTodoListItem from './EditableTodoListItem';
 
 class TodoListItem extends Component{
   constructor(props){
@@ -20,7 +20,7 @@ class TodoListItem extends Component{
       return(
         <div>
         {this.state.editable ?
-          <EditableTodo
+          <EditableTodoListItem
             text={this.props.item}
             todoListItemView={this.handleEditClick}
             id={this.props.id}

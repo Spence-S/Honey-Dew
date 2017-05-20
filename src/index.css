@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Dancing+Script');
 
-body{
-  /*background-color: #F5F5DC;*/
-  background-color: lightyellow;
-}
 .fancy{
   font-family: 'Dancing Script', cursive;
   font-size: 10rem;

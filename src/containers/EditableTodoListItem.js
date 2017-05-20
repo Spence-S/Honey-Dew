@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-class EditableTodo extends Component{
+class EditableTodoListItem extends Component{
   constructor(props){
     super(props);
     this.state = { value: this.props.text }
@@ -73,4 +73,4 @@ class EditableTodo extends Component{
     }
   }
 
-export default EditableTodo;
+export default EditableTodoListItem;

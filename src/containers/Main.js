@@ -35,15 +35,15 @@ class Main extends Component {
             </Navbar.Header>
             <Navbar.Collapse>
               <Nav pullRight>
-                <LinkContainer to="/"><NavItem eventKey={1}>Home</NavItem></LinkContainer>
-                <LinkContainer to="/App"><NavItem eventKey={2}>App</NavItem></LinkContainer>
-                <LinkContainer to="/Login"><NavItem eventKey={3}>Login</NavItem></LinkContainer>
-                <NavDropdown eventKey={4} title="Dropdown" id="basic-nav-dropdown">
-                  <MenuItem eventKey={4.1}>Action</MenuItem>
-                  <MenuItem eventKey={4.2}>Another action</MenuItem>
-                  <MenuItem eventKey={4.3}>Something else here</MenuItem>
+                <LinkContainer exact to="/"><NavItem>Home</NavItem></LinkContainer>
+                <LinkContainer to="/App"><NavItem>App</NavItem></LinkContainer>
+                <LinkContainer to="/Login"><NavItem>Login</NavItem></LinkContainer>
+                <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                  <MenuItem>Action</MenuItem>
+                  <MenuItem>Another action</MenuItem>
+                  <MenuItem>Something else here</MenuItem>
                   <MenuItem divider />
-                  <MenuItem eventKey={4.4}>Separated link</MenuItem>
+                  <MenuItem>Separated link</MenuItem>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>
