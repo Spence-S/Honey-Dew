@@ -14,8 +14,8 @@ export const userLogin = (token) => {
 }
 
 export const logout = () => {
-  window.localStorage.clear();
-  //dispatch((() => ({ type: LOGOUT }))());
+  localStorage.clear();
+  // dispatch((() => ({ type: LOGOUT }))());
   return { type: LOGOUT };
 }
 
@@ -40,10 +40,10 @@ export const getNewUserToken = (data) => async (dispatch, getState) => {
   }
 }
 
-export const getTokenWithFacebook = () => async (dispactch, getState) => {
-  try{
-    return
-  } catch(e) {
-    return
-  }
-}
+// export const getTokenWithFacebook = () => async (dispactch, getState) => {
+//   try{
+//     return
+//   } catch (e){
+//     console.log(e);
+//   }
+// }

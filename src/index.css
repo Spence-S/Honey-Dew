@@ -2,15 +2,21 @@
 
 .fancy{
   font-family: 'Dancing Script', cursive;
-  font-size: 10rem;
+  font-size: 8rem;
   color: gold;
 }
 .small{
-  font-size: 4rem;
+  font-size: 3rem;
 }
 .modal-container {
   position: relative;
 }
 .modal-container .modal, .modal-container .modal-backdrop {
   position: absolute;
+}
+.list-group-item{
+  border-width: 0px 0px 1px 0px;
+}
+.well{
+  border-radius: 1px;
 }

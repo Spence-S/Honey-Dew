@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Modal, Button } from 'react-bootstrap';
@@ -73,6 +72,8 @@ class App extends Component {
                   item={todo.text}
                   id={todo._id}
                   index={index}
+                  notes={todo.notes}
+                  dueDate={todo.dueDate}
                   callBack={this.refreshState}
                   editTodo={this.props.editTodo}
                   deleteTodo={this.props.deleteTodoThunk}

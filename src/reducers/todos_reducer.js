@@ -1,7 +1,7 @@
 import { UPDATE_TODOS, UPDATE_TODO, TODOS_ERROR, CREATE_TODO, DELETE_TODO } from '../actions';
 
 const initialState = {
-  list: []
+  list: [{text: 'Default state todo', notes: 'Default notes field', due: '5/25/17'}]
 }
 
 
@@ -11,7 +11,7 @@ export default function todosState (state = initialState, action){
     case UPDATE_TODOS:
       return {
         ...state,
-        list: payload
+        list: [...payload]
       }
     case UPDATE_TODO:
       return {
