@@ -3,6 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
+import {
+  ConnectedRouter,
+  routerMiddleware,
+  push } from 'react-router-redux'
+
 
 // middleware
 import thunkMiddleware from 'redux-thunk';
@@ -12,6 +17,8 @@ import logger from 'redux-logger'; // dev use!
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import './index.css';
+import createHistory from 'history/createBrowserHistory'
+export const history = createHistory();
 
 // components
 import Main from './containers/Main';
@@ -20,6 +27,8 @@ import {rootReducer} from './reducers';
 //heleprs
 import { loadState, saveState } from './utils/storage';
 
+// Create a history of your choosing (we're using a browser history in this case)
+const routerMW = routerMiddleware(history);
 // local storage persistence
 const persistedState = loadState();
 
@@ -29,7 +38,8 @@ let store = createStore(
   persistedState,
   applyMiddleware(
     thunkMiddleware,
-    logger
+    logger,
+    routerMW
   )
 );
 window.store = store;
@@ -40,7 +50,9 @@ store.subscribe(() => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Main />
+    {/* <ConnectedRouter history={history}> */}
+      <Main />
+    {/* </ConnectedRouter> */}
   </Provider>,
   document.getElementById('root')
 );

@@ -16,6 +16,9 @@ import {
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
+import { history } from '..';
+import { ConnectedRouter } from 'react-router-redux';
+
 import LandingPage from './LandingPage';
 
 import Login from './Login';
@@ -24,7 +27,7 @@ import App from './App';
 class Main extends Component {
   render() {
     return (
-      <Router>
+      <ConnectedRouter history={history}>
         <div>
           <Navbar fluid collapseOnSelect>
             <Navbar.Header>
@@ -59,7 +62,7 @@ class Main extends Component {
             <Route path="/Login" component={Login} />
           </Grid>
         </div>
-      </Router>
+      </ConnectedRouter>
     )
   }
 }
