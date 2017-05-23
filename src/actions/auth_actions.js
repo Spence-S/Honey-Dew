@@ -5,11 +5,14 @@ export const LOGIN = 'LOGIN';
 export const SET_TOKEN = 'SET_TOKEN';
 export const LOGOUT = 'LOGOUT';
 
+// env vars
+const url = process.env.REACT_APP_API_URL;
+
 // action creators
-export const userLogin = (token) => {
+export const userLogin = (payload) => {
   return {
     type: LOGIN,
-    payload: token
+    payload
   }
 }
 
@@ -22,7 +25,7 @@ export const logout = () => {
 // thunks
 export const getToken = (data) => async (dispatch, getState) => {
   try{
-    let token = await axios.post('https://mighty-falls-76862.herokuapp.com/users/login', data);
+    let token = await axios.post(`${url}/users/login`, data);
     token = token.headers['x-auth'];
     dispatch(userLogin(token));
   } catch (e){
@@ -30,9 +33,9 @@ export const getToken = (data) => async (dispatch, getState) => {
   }
 }
 
-export const getNewUserToken = (data) => async (dispatch, getState) => {
+export const getNewUserToken = data => async (dispatch, getState) => {
   try{
-    let token = await axios.post('https://mighty-falls-76862.herokuapp.com/users/', data);
+    let token = await axios.post(`${url}/users/`, data);
     token = token.headers['x-auth'];
     dispatch(userLogin(token));
   } catch (e){
@@ -40,10 +43,13 @@ export const getNewUserToken = (data) => async (dispatch, getState) => {
   }
 }
 
-// export const getTokenWithFacebook = () => async (dispactch, getState) => {
-//   try{
-//     return
-//   } catch (e){
-//     console.log(e);
-//   }
-// }
+export const getTokenWithFacebook = data => async (dispatch, getState) => {
+  try{
+    let token = await axios.post(`${url}/users/facebook`, data);
+    console.log('token:\n',token);
+    token = token.headers['x-auth'];
+    dispatch(userLogin({token, data}));
+  } catch (e) {
+    console.log(e);
+  }
+}

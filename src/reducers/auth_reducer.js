@@ -2,7 +2,10 @@ import { LOGIN, LOGOUT } from '../actions/';
 
 const initialState = {
   isLoggedIn: false,
-  token: ''
+  token: '',
+  facebook: {
+
+  }
 }
 
 export default function authState (state = initialState, action) {
@@ -12,7 +15,8 @@ export default function authState (state = initialState, action) {
     return {
       ...state,
       isLoggedIn: true,
-      token: action.payload
+      token: action.payload.token,
+      facebook: action.payload.data
     };
     case LOGOUT:
     return {

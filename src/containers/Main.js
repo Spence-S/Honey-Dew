@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  BrowserRouter as Router,
   Route,
   Redirect,
   Link
@@ -40,13 +39,17 @@ class Main extends Component {
               <Nav pullRight>
                 <LinkContainer exact to="/"><NavItem>Home</NavItem></LinkContainer>
                 <LinkContainer to="/App"><NavItem>App</NavItem></LinkContainer>
-                <LinkContainer to="/Login"><NavItem>Login</NavItem></LinkContainer>
-                <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                  <MenuItem>Action</MenuItem>
-                  <MenuItem>Another action</MenuItem>
-                  <MenuItem>Something else here</MenuItem>
-                  <MenuItem divider />
-                  <MenuItem>Separated link</MenuItem>
+                <LinkContainer to="/Login"><NavItem>{this.props.authState.isLoggedIn ? 'Logout' : 'Login' }</NavItem></LinkContainer>
+                <NavDropdown title={
+                                    this.props.authState.isLoggedIn ?
+                                    //'account img'
+                                    (<img alt="fbpic" className="img-circle noouter" src={this.props.authState.facebook.picture.data.url} />)
+                                    :
+                                    'Account'
+                                    } id="basic-nav-dropdown">
+                  <LinkContainer to="/settings"><MenuItem>Account</MenuItem></LinkContainer>
+                  <MenuItem>Notifications</MenuItem>
+                  <MenuItem>Stats</MenuItem>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>

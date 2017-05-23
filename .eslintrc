@@ -1,6 +1,10 @@
+
 {
-  extends: airbnb,
-  rules: {
+  "extends": "react-app",
+  "rules": {
+    "no-console": "off",
+    "strict": ["error", "global"],
+    "curly": "warn",
     "no-underscore-dangle": off,
     "no-shadow": ["error", { "allow": ["err","done"] }],
     "consistent-return": off,
@@ -8,5 +12,5 @@
     "comma-dangle": off,
     "no-trailing-spaces": ["error", { "skipBlankLines": false }],
     "no-multiple-empty-lines": off
-    }
+  }
 }

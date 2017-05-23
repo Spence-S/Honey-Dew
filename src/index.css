@@ -20,3 +20,8 @@
 .well{
   border-radius: 1px;
 }
+.noouter{
+  position: absolute;
+  top: .001rem;
+  right:.2rem;
+}

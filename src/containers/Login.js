@@ -38,7 +38,8 @@ class Login extends Component{
   }
 
   responseFacebook = (res) => {
-    console.log(res)
+    console.log(res);
+    this.props.getTokenWithFacebook(res);
   }
 
   renderSignIn = () =>
@@ -116,10 +117,11 @@ class Login extends Component{
       </form>
       <FacebookLogin
       appId="1503702696325932"
-      autoLoad={true}
       fields="name,email,picture, friends"
       scope="public_profile,user_friends"
+      cssClass='btn btn-primary fa fa-facebook'
       callback={this.responseFacebook}
+      textButton="Login"
       />
     </div>
     )
@@ -145,6 +147,11 @@ class Login extends Component{
   render(){
     if(this.props.authState.isLoggedIn){
       return (
+        // <div>
+        //
+        //   { this.props.logout() }
+        //
+        // </div>
         <div>
           <h1> You are logged in! </h1>
           <button

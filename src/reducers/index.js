@@ -1,7 +1,7 @@
 import authState from './auth_reducer';
 import todosState from './todos_reducer';
 import { combineReducers } from 'redux';
-import LOGOUT from '../actions/auth_actions';
+import { LOGOUT } from '../actions/auth_actions';
 import { routerReducer } from 'react-router-redux'
 
 

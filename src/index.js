@@ -3,11 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
-import {
-  ConnectedRouter,
-  routerMiddleware,
-  push } from 'react-router-redux'
-
+import { routerMiddleware } from 'react-router-redux'
 
 // middleware
 import thunkMiddleware from 'redux-thunk';
@@ -18,7 +14,6 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import './index.css';
 import createHistory from 'history/createBrowserHistory'
-export const history = createHistory();
 
 // components
 import Main from './containers/Main';
@@ -27,6 +22,7 @@ import {rootReducer} from './reducers';
 //heleprs
 import { loadState, saveState } from './utils/storage';
 
+export const history = createHistory();
 // Create a history of your choosing (we're using a browser history in this case)
 const routerMW = routerMiddleware(history);
 // local storage persistence

@@ -11,7 +11,6 @@ import * as actions from '../actions';
 class App extends Component {
   constructor(props){
     super(props);
-    this.headers = { 'x-auth': window.localStorage.getItem('x-auth') };
     this.state = {
       formVal: '',
       showModal: false,
@@ -20,11 +19,6 @@ class App extends Component {
 
   componentDidMount = () => {
     this.props.updateList();
-  }
-
-  handleLogout = (e) => {
-    e.preventDefault();
-    this.props.logout();
   }
 
   handleChange = (e) => {
@@ -40,7 +34,6 @@ class App extends Component {
   renderTodoForm = () => {
     return(
       <div className="modal-container">
-        <button className='btn btn-link pull-right' onClick={this.handleLogout}>logout</button>
         <h1 className="fancy">My Todos:</h1>
         <form onSubmit={this.handleSubmit} className='row'>
           <div className='form-group col-xs-12 col-sm-8 col-md-4'>

@@ -1,6 +1,6 @@
 
 export function checkXAuth  (getState) {
-  if(getState().auth.token) return true;
+  if (getState().auth.token) { return true } ;
 
 }
 
