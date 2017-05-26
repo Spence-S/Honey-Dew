@@ -15,7 +15,7 @@ export const TODO_ERROR = 'TODO_ERROR';
 
 // constants
 //const url='https://mighty-falls-76862.herokuapp.com/';
-const url = process.env.RECT_APP_API_URL;
+const url = process.env.REACT_APP_API_URL;
 
 //helper
 const getHeader = getState => ({ headers : { 'x-auth': getState().authState.token } });
@@ -66,7 +66,7 @@ export const updateList = () => async (dispatch, getState) => {
    try{
      let res = await axios.get(`${url}/api`, header);
      res.data.todos = res.data.todos.map(todo => {
-       //todo.notes = 'default notes. This is a longer string of notes to see how the notes might wrap around in the well. Well may not be the best thing for this type of thing. This is a long note.';
+       todo.notes = 'default notes. This is a longer string of notes to see how the notes might wrap around in the well. Well may not be the best thing for this type of thing. This is a long note.';
        todo.dueDate= '5/27/17';
        return todo;
      })
