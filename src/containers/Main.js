@@ -18,10 +18,11 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { history } from '..';
 import { ConnectedRouter } from 'react-router-redux';
 
+// Components
 import LandingPage from './LandingPage';
-
 import Login from './Login';
 import App from './App';
+import Account from './Account';
 
 class Main extends Component {
   render() {
@@ -47,7 +48,7 @@ class Main extends Component {
                                     :
                                     'Account'
                                     } id="basic-nav-dropdown">
-                  <LinkContainer to="/settings"><MenuItem>Account</MenuItem></LinkContainer>
+                  <LinkContainer to="/account"><MenuItem>Account</MenuItem></LinkContainer>
                   <MenuItem>Notifications</MenuItem>
                   <MenuItem>Stats</MenuItem>
                 </NavDropdown>
@@ -63,6 +64,7 @@ class Main extends Component {
             )}
           />
             <Route path="/Login" component={Login} />
+            <Route path="/Account" render={() => <Account {...this.props} />} />
           </Grid>
         </div>
       </ConnectedRouter>
