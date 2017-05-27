@@ -20,18 +20,24 @@ class TodoListItem extends Component{
   }
 
   handleEditClick = () => {
-    this.setState({editable:!this.state.editable});
+    // changes state of eidtable and shows expanded view as long as editable is open
+    // linking editable and expanded view together ensures expanded view is always open while
+    // editable view is open
+    this.setState({editable:!this.state.editable, expandedView: !this.state.editable });
   }
 
   renderEditable = () => (
-    <EditableTodoListItem
-      text={this.props.item}
-      todoListItemView={this.handleEditClick}
-      id={this.props.id}
-      index={this.props.index}
-      refreshState={this.props.callBack}
-      editTodo={this.props.editTodo}
-    />
+    <div>
+      <EditableTodoListItem
+        text={this.props.item}
+        todoListItemView={this.handleEditClick}
+        id={this.props.id}
+        index={this.props.index}
+        refreshState={this.props.callBack}
+        editTodo={this.props.editTodo}
+      />
+      {this.renderExpandedView()}
+    </div>
   )
 
   renderItem = () => (

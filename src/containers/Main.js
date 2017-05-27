@@ -10,8 +10,7 @@ import {
   Navbar,
   NavItem,
   MenuItem,
-  NavDropdown,
-  Grid
+  NavDropdown
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
