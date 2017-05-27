@@ -55,7 +55,6 @@ class Main extends Component {
               </Nav>
             </Navbar.Collapse>
           </Navbar>
-          <Grid fluid>
             <Route exact path="/" component={LandingPage} />
 
             <Route exact path="/App" render={() => (
@@ -65,7 +64,6 @@ class Main extends Component {
           />
             <Route path="/Login" component={Login} />
             <Route path="/Account" render={() => <Account {...this.props} />} />
-          </Grid>
         </div>
       </ConnectedRouter>
     )
