@@ -42,7 +42,7 @@ class TodoListItem extends Component{
 
   renderItem = () => (
     <li className='list-group-item clearfix'>
-      {this.props.item}
+      <p className={this.props.completed ? 'strike' : null}>{this.props.item}</p>
       <button className='btn btn-default btn-xs pull-right'
               style={{marginLeft: 10}}
               onClick={()=>this.setState({expandedView: !this.state.expandedView})}>
