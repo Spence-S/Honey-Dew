@@ -26,3 +26,6 @@
   top: .001rem;
   right:.2rem;
 }
+.list-group-item-top{
+  border-width: 0px 0px 1px 0px;
+}
