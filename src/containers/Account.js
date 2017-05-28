@@ -11,47 +11,36 @@ export default class Account extends Component{
   render(){
     return(
       <div className='row'>
-        <div className='col-md-6'>
-          <h3> </h3>
+        <div className='col-xs-12 col-md-6'>
+          <h3> {this.props.userState.firstName}'s Settings</h3>
           <ul className="list-group">
             <div>
-              <li className='list-group-item'>
-                <span>First Name: </span>
-                <button className="btn btn-link">Change</button>
-              </li>
+              <EditableLi
+                {...this.props}
+                field='First Name'
+                value={this.props.userState.firstName}
+                edit={this.props.editFirstName}
+              />
+            </div>
+            <div>
+              <EditableLi
+                {...this.props}
+                field='Last Name'
+                value={this.props.userState.lastName}
+                edit={this.props.editLastName}
+              />
+            </div>
+            <div>
+              <EditableLi
+                {...this.props}
+                field='Email'
+                value={this.props.userState.email}
+                edit={this.props.editEmail}
+              />
             </div>
             <div>
               <li className='list-group-item'>
-                Last Name:
-                <button className="btn btn-link">Change</button>
-              </li>
-            </div>
-            <div>
-              <li className='list-group-item'>
-                Primary Email:
-                <button className="btn btn-link">Change</button>
-              </li>
-            </div>
-            <div>
-              <li className='list-group-item'>
-                <button className="btn btn-link"> Change Picture</button>
-              </li>
-            </div>
-            <div>
-              <li className='list-group-item'>
-                Phone:
-                <button className="btn btn-link">Change</button>
-              </li>
-            </div>
-            <div>
-              <li className='list-group-item'>
-                <p>Facebook Linked: true</p>
-                <button className="btn btn-link">Change</button>
-              </li>
-            </div>
-            <div>
-              <li className='list-group-item'>
-                something here: true
+                <p>Facebook Linked: no</p>
                 <button className="btn btn-link">Change</button>
               </li>
             </div>
@@ -59,5 +48,87 @@ export default class Account extends Component{
         </div>
       </div>
     )
+  }
+}
+
+
+/*
+* Editable List Item
+*
+* takes props field, value, onClick
+*
+*
+*
+*
+*/
+class EditableLi extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      editable: false,
+      value: this.props.value
+    }
+  }
+
+  renderEditable = () => (
+    <li className='list-group-item'>
+      <div>{this.props.field}:
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            this.setState({ editable: false })
+            this.props.edit(this.state.value);
+          }}>
+          <input
+            className='form-control'
+            type='text'
+            name={this.props.field}
+            placeholder={this.props.value}
+            autoFocus={true}
+            value={this.state.value}
+            onChange={(e)=>{this.setState({ value: e.target.value })}}
+            onBlur={() => {
+              this.setState({ editable: false })
+              this.props.edit(this.state.value);
+            }}
+          />
+        </form>
+      </div>
+      <button className="btn btn-link">Change</button>
+    </li>
+  )
+
+  renderListItem = () => (
+    <li className='list-group-item' >
+      <div >
+        <span className='col-md-3'>
+          {this.props.field}:
+        </span>
+        <span className='col-md-3'>
+          {this.props.value }
+        </span>
+      </div>
+      <button className="btn btn-link"
+        onClick={()=>{this.setState({ editable: true })}}>
+        Change
+      </button>
+    </li>
+  )
+
+
+  render() {
+    if (this.state.editable) {
+      return (
+        <div>
+          {this.renderEditable()}
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          {this.renderListItem()}
+        </div>
+      )
+    }
   }
 }
