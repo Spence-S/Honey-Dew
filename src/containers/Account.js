@@ -7,13 +7,13 @@ const Account = (props) => (
       <ul className="list-group">
         <div>
           <li className='list-group-item'>
-            <span>First Name: {props.authState.facebook.name.split(" ")[0]}</span>
+            <span>First Name: {props.authState.facebook.name ? props.authState.facebook.name.split(" ")[0] : ''}</span>
             <button className="btn btn-link">Change</button>
           </li>
         </div>
         <div>
           <li className='list-group-item'>
-            Last Name: {props.authState.facebook.name.split(" ")[1]}
+            Last Name: {props.authState.facebook.name ? props.authState.facebook.name.split(" ")[1] : ''}
             <button className="btn btn-link">Change</button>
           </li>
         </div>
