@@ -156,7 +156,7 @@ class Login extends Component{
           <h1> You are logged in! </h1>
           <button
             className="btn btn-link"
-            onClick={() => this.props.logout()}
+            onClick={() => this.props.logoutThunk()}
             > logout </button>
         </div>
       )

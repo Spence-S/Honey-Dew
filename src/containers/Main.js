@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   Route,
   Redirect,
@@ -22,8 +23,26 @@ import LandingPage from './LandingPage';
 import Login from './Login';
 import App from './App';
 import Account from './Account';
+import Flash from './Flash';
+
+import * as actions from '../actions';
 
 class Main extends Component {
+  renderFlashMessage = () => {
+    // check if there is a message to show
+    if(this.props.flashState.showFlash){
+      //show message
+      return(
+        <Flash
+          offClick={() => this.props.hideFlash()}
+          show={this.props.flashState.showFlash}
+          message={this.props.flashState.message}
+          style={this.props.flashState.status}
+        />
+      )
+    }
+  }
+
   render() {
     return (
       <ConnectedRouter history={history}>
@@ -41,9 +60,9 @@ class Main extends Component {
                 <LinkContainer to="/App"><NavItem>App</NavItem></LinkContainer>
                 <LinkContainer to="/Login"><NavItem>{this.props.authState.isLoggedIn ? 'Logout' : 'Login' }</NavItem></LinkContainer>
                 <NavDropdown title={
-                                    this.props.authState.isLoggedIn ?
+                                    (this.props.authState.isLoggedIn && this.props.authState) ?
                                     //'account img'
-                                    (<img alt="fbpic" className="img-circle noouter" src={this.props.authState.facebook.picture.data.url} />)
+                                    (<img alt="fbpic" className="img-circle noouter tiny" src={"https://www.skirmish-vt.com/Images/icons/default-avatar.png"} />)
                                     :
                                     'Account'
                                     } id="basic-nav-dropdown">
@@ -54,15 +73,16 @@ class Main extends Component {
               </Nav>
             </Navbar.Collapse>
           </Navbar>
+          <div className='container-fluid'>
+            {this.renderFlashMessage()}
             <Route exact path="/" component={LandingPage} />
-
             <Route exact path="/App" render={() => (
               !this.props.authState.isLoggedIn ?
                 <Redirect to="/Login" /> : <App />
-            )}
-          />
+              )}/>
             <Route path="/Login" component={Login} />
             <Route path="/Account" render={() => <Account {...this.props} />} />
+          </div>
         </div>
       </ConnectedRouter>
     )
@@ -73,4 +93,7 @@ function mapStateToProps(state){
   return { ...state }
 }
 
-export default connect(mapStateToProps, null)(Main);
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({ ...actions }, dispatch);
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
