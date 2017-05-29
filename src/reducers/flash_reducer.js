@@ -17,6 +17,13 @@ export default function flashState (state = initialState, action){
         message: 'Login was successful',
         showFlash: true
       }
+    case LOGOUT:
+      return {
+        ...state,
+        status: 'success',
+        message: 'All logged out! Come back soon :)',
+        showFlash: true
+      }
     case TODO_ERROR:
       return {
         ...state,
