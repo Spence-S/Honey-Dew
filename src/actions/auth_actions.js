@@ -37,9 +37,11 @@ export const loginError = () => {
 // thunks
 export const getToken = (data) => async (dispatch, getState) => {
   try{
-    let token = await axios.post(`${url}/users/login`, data);
-    token = token.headers['x-auth'];
-    dispatch(userLogin({token, data: {}}));
+    let res = await axios.post(`${url}/users/login`, data);
+    let token = res.headers['x-auth'];
+    let user = res.data;
+    console.log(user);
+    dispatch(userLogin({token, user}));
   } catch (e){
     console.log(e)
   }
@@ -49,22 +51,22 @@ export const getNewUserToken = data => async (dispatch, getState) => {
   try{
     let token = await axios.post(`${url}/users/`, data);
     token = token.headers['x-auth'];
-    dispatch(userLogin({token}, data: {}));
+    dispatch(userLogin({token, data}));
   } catch (e){
     console.log(e)
   }
 }
 
-export const getTokenWithFacebook = data => async (dispatch, getState) => {
-  try{
-    let token = await axios.post(`${url}/users/facebook/test`, data);
-    console.log('token:\n',token);
-    token = token.headers['x-auth'];
-    dispatch(userLogin({token, data}));
-  } catch (e) {
-    console.log(e);
-  }
-}
+// export const getTokenWithFacebook = data => async (dispatch, getState) => {
+//   try{
+//     let token = await axios.post(`${url}/users/facebook/test`, data);
+//     console.log('token:\n',token);
+//     token = token.headers['x-auth'];
+//     dispatch(userLogin({token, data}));
+//   } catch (e) {
+//     console.log(e);
+//   }
+// }
 
 export const logoutThunk = data => async (dispatch, getState) => {
   const header = getHeader(getState);

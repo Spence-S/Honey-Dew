@@ -23,6 +23,14 @@ export default function (state = initialState, action) {
         ...state,
         email: action.payload
       }
+    case 'LOGIN':
+      return {
+        ...state,
+        email: action.payload.user.email,
+        firstName: action.payload.user.firstName,
+        lastName: action.payload.user.lastName,
+        picture: action.payload.user.image.url
+      }
     default:
       return state;
   }

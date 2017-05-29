@@ -18,7 +18,6 @@ export default class Account extends Component{
     return(
       <div className='row'>
         <div className='col-xs-12 col-md-6'>
-          <button onClick={()=>{this.props.linkFacebook()}} > Link FB test</button>
           <h3> {this.props.userState.firstName}'s Settings</h3>
           <ul className="list-group">
             <div>
