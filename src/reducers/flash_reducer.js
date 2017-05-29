@@ -1,4 +1,4 @@
-import { LOGIN } from '../actions/auth_actions';
+import { LOGIN, LOGOUT} from '../actions/auth_actions';
 import { TODOS_ERROR, TODO_ERROR } from '../actions/todos_actions';
 import { HIDE_FLASH } from '../actions/flash_actions';
 
