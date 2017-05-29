@@ -10,7 +10,7 @@ export default class Account extends Component{
   }
 
   responseFacebook = (res) => {
-    // console.log(res);
+    console.log(res);
     this.props.linkFacebook(res);
   }
 
