@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FacebookLogin from 'react-facebook-login'
 
 export default class Account extends Component{
   constructor(props){
@@ -42,6 +43,14 @@ export default class Account extends Component{
               <li className='list-group-item'>
                 <p>Facebook Linked: no</p>
                 <button className="btn btn-link">Change</button>
+                <FacebookLogin
+                appId="1503702696325932"
+                fields="name,email,picture"
+                scope="public_profile"
+                cssClass='btn btn-primary fa fa-facebook'
+                callback={this.responseFacebook}
+                textButton="Login"
+                />
               </li>
             </div>
           </ul>
