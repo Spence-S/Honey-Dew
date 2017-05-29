@@ -1,8 +1,8 @@
 const initialState = {
-  firstName: 'Spencer',
-  lastName: 'Snyder',
-  email: 'sasnyde2@gmail.com',
-  picture: 'http://www.hdwallpapers.in/walls/neytiri_in_avatar_2-wide.jpg',
+  firstName: '',
+  lastName: '',
+  email: '',
+  picture: '',
   facebook:{}
 }
 

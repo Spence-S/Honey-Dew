@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FacebookLogin from 'react-facebook-login'
+import FacebookLogin from 'react-facebook-login';
 
 export default class Account extends Component{
   constructor(props){
@@ -9,10 +9,16 @@ export default class Account extends Component{
     }
   }
 
+  responseFacebook = (res) => {
+    // console.log(res);
+    this.props.linkFacebook(res);
+  }
+
   render(){
     return(
       <div className='row'>
         <div className='col-xs-12 col-md-6'>
+          <button onClick={()=>{this.props.linkFacebook()}} > Link FB test</button>
           <h3> {this.props.userState.firstName}'s Settings</h3>
           <ul className="list-group">
             <div>
@@ -47,9 +53,11 @@ export default class Account extends Component{
                 appId="1503702696325932"
                 fields="name,email,picture"
                 scope="public_profile"
-                cssClass='btn btn-primary fa fa-facebook'
                 callback={this.responseFacebook}
-                textButton="Login"
+                icon="fa-facebook"
+                textButton="Link FB"
+                size="small"
+                style={{borderRadius: '5px' }}
                 />
               </li>
             </div>

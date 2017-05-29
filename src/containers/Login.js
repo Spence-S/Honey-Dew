@@ -36,11 +36,6 @@ class Login extends Component{
     this.setState({showSignIn: !this.state.showSignIn});
   }
 
-  responseFacebook = (res) => {
-    console.log(res);
-    this.props.getTokenWithFacebook(res);
-  }
-
   renderSignIn = () =>
     (<div>
       <form className="form-horizontal">
