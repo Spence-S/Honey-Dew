@@ -77,43 +77,13 @@ class App extends Component {
         </div>
         <div className="col-xs-0 col-sm-2 col-md-2 col-lg-2">
         </div>
-        {this.renderAddFriendsBar()}
       </div>
     </div>
-  )
-
-  renderAddFriendsBar = () => (
-    <div className="col-xs-12 col-sm-4 text-center" >
-      <button
-        className="btn btn-primary"
-        onClick={()=>this.setState({ showModal: !this.state.showModal })}
-        >
-        Invite a friend!
-      </button>
-    </div>
-  )
-
-  modal = () => (
-      <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false})} container={document.body}>
-          <Modal.Header>
-            <Modal.Title>Modal title</Modal.Title>
-          </Modal.Header>
-
-          <Modal.Body>
-            One fine body...
-          </Modal.Body>
-
-          <Modal.Footer>
-            <Button onClick={()=>this.setState({ showModal: false})}>Close</Button>
-            <Button bsStyle="primary">Save changes</Button>
-          </Modal.Footer>
-      </Modal>
   )
 
   render() {
     return (
         <div>
-          {this.modal()}
           {this.renderTodoList()}
         </div>
     )
