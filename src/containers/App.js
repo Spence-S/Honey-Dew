@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Modal, Button } from 'react-bootstrap';
 
 import TodoListItem from './TodoListItem';
 

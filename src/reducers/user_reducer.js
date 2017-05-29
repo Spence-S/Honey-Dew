@@ -23,6 +23,11 @@ export default function (state = initialState, action) {
         ...state,
         email: action.payload
       }
+    case 'CHANGE_PICTURE':
+      return {
+        ...state,
+        picture: action.payload
+      }
     case 'LOGIN':
       return {
         ...state,

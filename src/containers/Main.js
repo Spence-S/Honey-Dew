@@ -35,9 +35,9 @@ class Main extends Component {
       return(
         <Flash
           offClick={() => this.props.hideFlash()}
-          show={this.props.flashState.showFlash}
-          message={this.props.flashState.message}
-          style={this.props.flashState.status}
+          show={ this.props.flashState.showFlash }
+          message={ this.props.flashState.message }
+          style={ this.props.flashState.status }
         />
       )
     }
@@ -58,11 +58,11 @@ class Main extends Component {
               <Nav pullRight>
                 <LinkContainer exact to="/"><NavItem>Home</NavItem></LinkContainer>
                 <LinkContainer to="/App"><NavItem>App</NavItem></LinkContainer>
-                <LinkContainer to="/Login"><NavItem>{this.props.authState.isLoggedIn ? 'Logout' : 'Login' }</NavItem></LinkContainer>
+                <LinkContainer to="/Login"><NavItem>{ this.props.authState.isLoggedIn ? 'Logout' : 'Login' }</NavItem></LinkContainer>
                 <NavDropdown title={
                                     (this.props.authState.isLoggedIn && this.props.authState) ?
                                     //'account img'
-                                    (<img alt="fbpic" className="img-circle noouter tiny" src={"https://www.skirmish-vt.com/Images/icons/default-avatar.png"} />)
+                                    (<img alt="fbpic" className="img-circle noouter tiny" src={this.props.userState.picture} />)
                                     :
                                     'Account'
                                     } id="basic-nav-dropdown">
@@ -74,14 +74,14 @@ class Main extends Component {
             </Navbar.Collapse>
           </Navbar>
           <div className='container-fluid'>
-            {this.renderFlashMessage()}
+            { this.renderFlashMessage() }
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/App" render={() => (
               !this.props.authState.isLoggedIn ?
                 <Redirect to="/Login" /> : <App />
               )}/>
             <Route path="/Login" component={Login} />
-            <Route path="/Account" render={() => <Account {...this.props} />} />
+            <Route path="/Account" render={ () => <Account {...this.props } /> } />
           </div>
         </div>
       </ConnectedRouter>

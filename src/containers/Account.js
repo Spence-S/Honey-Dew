@@ -40,7 +40,7 @@ export default class Account extends Component{
               <EditableLi
                 {...this.props}
                 field='Email'
-                value={this.props.userState.email}
+                value={this.props.userState.email.url}
                 edit={this.props.editEmail}
               />
             </div>
