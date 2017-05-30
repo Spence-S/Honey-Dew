@@ -31,10 +31,10 @@ export default function (state = initialState, action) {
     case 'LOGIN':
       return {
         ...state,
-        email: action.payload.user.email,
+        email: action.payload.user.email[0].email,
         firstName: action.payload.user.firstName,
         lastName: action.payload.user.lastName,
-        picture: action.payload.user.image.url
+        //picture: action.payload.user.image.url
       }
     default:
       return state;

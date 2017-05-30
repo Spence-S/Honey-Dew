@@ -8,6 +8,7 @@ export const LOGIN_ERROR = 'LOGIN_ERROR';
 
 // env vars
 const url = process.env.REACT_APP_API_URL;
+console.log(url);
 const getHeader = getState => ({ headers : { 'x-auth': getState().authState.token } });
 
 // action creators
@@ -43,16 +44,19 @@ export const getToken = (data) => async (dispatch, getState) => {
     console.log(user);
     dispatch(userLogin({token, user}));
   } catch (e){
+    dispatch(loginError())
     console.log(e)
   }
 }
 
 export const getNewUserToken = data => async (dispatch, getState) => {
   try{
-    let token = await axios.post(`${url}/users/`, data);
-    token = token.headers['x-auth'];
-    dispatch(userLogin({token, data}));
+    let res = await axios.post(`${url}/users/`, data);
+    let token = res.headers['x-auth'];
+    let user = res.data;
+    dispatch(userLogin({token, user}));
   } catch (e){
+    dispatch(loginError())
     console.log(e)
   }
 }
