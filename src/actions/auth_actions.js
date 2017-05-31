@@ -25,13 +25,10 @@ export const logout = () => {
   return { type: LOGOUT };
 }
 
-export const loginError = () => {
+export const loginError = (payload) => {
   return {
     type: LOGIN_ERROR,
-    payload: {
-      showFlash: true,
-      message: 'There was an error logging you in. Are you sure you are signed up?'
-    }
+    payload
   }
 }
 
@@ -44,7 +41,11 @@ export const getToken = (data) => async (dispatch, getState) => {
     console.log(user);
     dispatch(userLogin({token, user}));
   } catch (e){
-    dispatch(loginError())
+    const payload = {
+      message: 'We had a problem logging you in, are you sure you\'re signed up? Signup below.',
+      status: 'danger'
+    }
+    dispatch(loginError(payload))
     console.log(e)
   }
 }
@@ -56,7 +57,11 @@ export const getNewUserToken = data => async (dispatch, getState) => {
     let user = res.data;
     dispatch(userLogin({token, user}));
   } catch (e){
-    dispatch(loginError())
+    const payload = {
+      message: 'There was a problem signing up, that email has already being used.',
+      status: 'danger'
+    }
+    dispatch(loginError(payload))
     console.log(e)
   }
 }
