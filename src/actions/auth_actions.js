@@ -8,8 +8,9 @@ export const LOGIN_ERROR = 'LOGIN_ERROR';
 
 // env vars
 const url = process.env.REACT_APP_API_URL;
-console.log(url);
+
 const getHeader = getState => ({ headers : { 'x-auth': getState().authState.token } });
+
 
 // action creators
 export const userLogin = (payload) => {
@@ -36,17 +37,18 @@ export const loginError = (payload) => {
 export const getToken = (data) => async (dispatch, getState) => {
   try{
     let res = await axios.post(`${url}/users/login`, data);
+    console.log(res)
     let token = res.headers['x-auth'];
     let user = res.data;
     console.log(user);
     dispatch(userLogin({token, user}));
-  } catch (e){
+  } catch (error){
+    console.log(error.response);
     const payload = {
-      message: 'We had a problem logging you in, are you sure you\'re signed up? Signup below.',
+      message: error.response.data,
       status: 'danger'
     }
-    dispatch(loginError(payload))
-    console.log(e)
+    dispatch(loginError(payload));
   }
 }
 
@@ -56,13 +58,14 @@ export const getNewUserToken = data => async (dispatch, getState) => {
     let token = res.headers['x-auth'];
     let user = res.data;
     dispatch(userLogin({token, user}));
-  } catch (e){
+  } catch (error){
+    console.log(error.response);
     const payload = {
-      message: 'There was a problem signing up, that email has already being used.',
+      message: error.response.data,
       status: 'danger'
     }
     dispatch(loginError(payload))
-    console.log(e)
+    console.log(error)
   }
 }
 
