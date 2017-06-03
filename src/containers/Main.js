@@ -58,17 +58,24 @@ class Main extends Component {
               <Nav pullRight>
                 <LinkContainer exact to="/"><NavItem>Home</NavItem></LinkContainer>
                 <LinkContainer to="/App"><NavItem>App</NavItem></LinkContainer>
-                <LinkContainer to="/Login"><NavItem>{ this.props.authState.isLoggedIn ? 'Logout' : 'Login' }</NavItem></LinkContainer>
+                {this.props.authState.isLoggedIn ?
+                  // Make logout logout immediately when logged in
+                  <NavItem onClick={()=>this.props.logoutThunk()}>Logout</NavItem> :
+                  // or link to login page if logged out
+                  <LinkContainer to="/Login"><NavItem>Login</NavItem></LinkContainer>
+                }
                 <NavDropdown title={
-                                    (this.props.authState.isLoggedIn && this.props.authState) ?
+                                    // need to review this and change to check if image url exists
+                                    // needs to verify user state and image has been set
+                                    (this.props.authState && this.props.userState.image) ?
                                     //'account img'
                                     (<img alt="fbpic" className="img-circle noouter tiny" src={this.props.userState.picture} />)
                                     :
                                     'Account'
                                     } id="basic-nav-dropdown">
                   <LinkContainer to="/account"><MenuItem>Account</MenuItem></LinkContainer>
-                  <MenuItem>Notifications</MenuItem>
-                  <MenuItem>Stats</MenuItem>
+                  {/* <MenuItem>Notifications</MenuItem>
+                  <MenuItem>Stats</MenuItem> */}
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>

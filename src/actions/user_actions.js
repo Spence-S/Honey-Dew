@@ -26,6 +26,32 @@ export const changePicture = (picurl) => ({
   payload: url
 });
 
+export const saveSuccess = () => ({
+  type: 'UPDATE_SUCCES',
+  payload: {
+    message: 'Changes have been saved!',
+    status: 'Success'
+  }
+})
+
+export const updateUser = (updateValues) => async (dispatch, getState) => {
+  const header = getHeader(getState);
+  try {
+    // package up update values in Account component
+    let res = await axios.put(`${url}/users`, updateValues, header);
+    if(res.data){
+      const payload = {message: 'Changes have been saved', status: 'Success'}
+      dispatch(saveSuccess(payload))
+    }
+  } catch (err) {
+    const payload = {
+      message: err.response.data,
+      status: 'Danger'
+    }
+    dispatch(saveSuccess(payload));
+  }
+}
+
 export const linkFacebook = (fbObject) => async (dispatch, getState) => {
   const header = getHeader(getState);
   let updateValues = {}

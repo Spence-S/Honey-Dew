@@ -24,7 +24,7 @@ class Flash extends Component{
       <div className={!this.props.show ? 'hidden' : ''}>
         <div className={style}>
           <div className="panel-heading">
-            <h3 className='panel-title'>Warning</h3>
+            <h3 className='panel-title'>{this.props.style}</h3>
           </div>
           <div className='panel-body'>
             {this.props.message}

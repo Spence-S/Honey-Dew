@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/auth_actions';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom'
 
 
 class Login extends Component{
@@ -131,15 +132,9 @@ class Login extends Component{
   }
 
   render(){
-    if(this.props.authState.isLoggedIn){
-      return (
-        <div>
-          <h1> You are logged in! </h1>
-          <button
-            className="btn btn-link"
-            onClick={() => this.props.logoutThunk()}
-            > logout </button>
-        </div>
+    if(this.props.authState.isLoggedIn) {
+      return(
+        <Redirect to='App' />
       )
     } else {
       return (
@@ -148,7 +143,7 @@ class Login extends Component{
         </div>
       )
     }
-   }
+    }
 }
 
 function mapStateToProps(state){

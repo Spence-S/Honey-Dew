@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FacebookLogin from 'react-facebook-login';
+// import FacebookLogin from 'react-facebook-login';
 
 export default class Account extends Component{
   constructor(props){
@@ -9,10 +9,10 @@ export default class Account extends Component{
     }
   }
 
-  responseFacebook = (res) => {
-    console.log(res);
-    this.props.linkFacebook(res);
-  }
+  // responseFacebook = (res) => {
+  //   console.log(res);
+  //   this.props.linkFacebook(res);
+  // }
 
   render(){
     return(
@@ -42,9 +42,10 @@ export default class Account extends Component{
                 field='Email'
                 value={this.props.userState.email}
                 edit={this.props.editEmail}
+                changeDisabled
               />
             </div>
-            <div>
+            {/* <div>
               <li className='list-group-item'>
                 <p>Facebook Linked: no</p>
                 <button className="btn btn-link">Change</button>
@@ -59,8 +60,16 @@ export default class Account extends Component{
                 style={{borderRadius: '5px' }}
                 />
               </li>
-            </div>
+            </div> */}
           </ul>
+          <button
+            className='btn btn-primary'
+            onClick={()=> this.props.updateUser(
+              {firstName: this.props.userState.firstName,
+              lastName: this.props.userState.lastName}
+            )}>
+            Save
+          </button>
         </div>
       </div>
     )
@@ -125,6 +134,7 @@ class EditableLi extends Component{
         </span>
       </div>
       <button className="btn btn-link"
+        disabled={this.props.changeDisabled}
         onClick={()=>{this.setState({ editable: true })}}>
         Change
       </button>
