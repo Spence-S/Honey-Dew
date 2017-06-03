@@ -32,7 +32,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         email: action.payload.user.email[0].email,
-        firstName: action.payload.user.firstName,
+        firstName: action.payload.user.firstName || action.payload.user.email[0].email.split('@')[0],
         lastName: action.payload.user.lastName,
         //picture: action.payload.user.image.url
       }

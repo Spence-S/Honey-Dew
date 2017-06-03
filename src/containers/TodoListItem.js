@@ -89,15 +89,15 @@ class TodoListItem extends Component{
               />
 
           </div>
-          <div className="form-group">
-            {/* <label> due date <span className="fa fa-calendar"/> :</label> */}
+          {/* <div className="form-group">
+            <label> due date <span className="fa fa-calendar"/> :</label> 
             <DatePicker
               className="form-control"
               selected={this.state.startDate}
               onChange={(date)=>(this.setState({startDate: date}))}
               customInput={<CalendarIconPicker />}
             />
-          </div>
+          </div> */}
         </form>
         :
         null

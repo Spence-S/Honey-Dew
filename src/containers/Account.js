@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 // import FacebookLogin from 'react-facebook-login';
 
 export default class Account extends Component{
@@ -15,64 +16,67 @@ export default class Account extends Component{
   // }
 
   render(){
-    return(
-      <div className='row'>
-        <div className='col-xs-12 col-md-6'>
-          <h3> {this.props.userState.firstName}'s Settings</h3>
-          <ul className="list-group">
-            <div>
-              <EditableLi
-                {...this.props}
-                field='First Name'
-                value={this.props.userState.firstName}
-                edit={this.props.editFirstName}
-              />
-            </div>
-            <div>
-              <EditableLi
-                {...this.props}
-                field='Last Name'
-                value={this.props.userState.lastName}
-                edit={this.props.editLastName}
-              />
-            </div>
-            <div>
-              <EditableLi
-                {...this.props}
-                field='Email'
-                value={this.props.userState.email}
-                edit={this.props.editEmail}
-                changeDisabled
-              />
-            </div>
-            {/* <div>
-              <li className='list-group-item'>
-                <p>Facebook Linked: no</p>
-                <button className="btn btn-link">Change</button>
-                <FacebookLogin
-                appId="1503702696325932"
-                fields="name,email,picture"
-                scope="public_profile"
-                callback={this.responseFacebook}
-                icon="fa-facebook"
-                textButton="Link FB"
-                size="small"
-                style={{borderRadius: '5px' }}
+    if (this.props.authState.isLoggedIn) {
+      return (
+        <div className='row'>
+          <div className='col-xs-12 col-md-6'>
+            <h3> {this.props.userState.firstName}'s Settings</h3>
+            <ul className="list-group">
+              <div>
+                <EditableLi
+                  {...this.props}
+                  field='First Name'
+                  value={this.props.userState.firstName}
+                  edit={this.props.editFirstName}
                 />
-              </li>
-            </div> */}
-          </ul>
-          <button
-            className='btn btn-primary'
-            onClick={()=> this.props.updateUser(
-              {firstName: this.props.userState.firstName,
-              lastName: this.props.userState.lastName}
-            )}>
-            Save
-          </button>
-        </div>
-      </div>
-    )
+              </div>
+              <div>
+                <EditableLi
+                  {...this.props}
+                  field='Last Name'
+                  value={this.props.userState.lastName}
+                  edit={this.props.editLastName}
+                />
+              </div>
+              <div>
+                <EditableLi
+                  {...this.props}
+                  field='Email'
+                  value={this.props.userState.email}
+                  edit={this.props.editEmail}
+                  changeDisabled
+                />
+              </div>
+              {/* <div>
+                <li className='list-group-item'>
+                  <p>Facebook Linked: no</p>
+                  <button className="btn btn-link">Change</button>
+                  <FacebookLogin
+                  appId="1503702696325932"
+                  fields="name,email,picture"
+                  scope="public_profile"
+                  callback={this.responseFacebook}
+                  icon="fa-facebook"
+                  textButton="Link FB"
+                  size="small"
+                  style={{borderRadius: '5px' }}
+                  />
+                </li>
+              </div> */}
+            </ul>
+            <button
+              className='btn btn-primary'
+              onClick={()=> this.props.updateUser(
+                {firstName: this.props.userState.firstName,
+                lastName: this.props.userState.lastName}
+              )}>
+              Save
+            </button>
+          </div>
+        </div>)
+      } else {
+        return <Redirect to='Login' />
+      }
   }
 }
 
