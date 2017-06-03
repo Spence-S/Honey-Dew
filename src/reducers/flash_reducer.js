@@ -14,7 +14,7 @@ export default function flashState (state = initialState, action){
       return {
         ...state,
         status: 'success',
-        message: `Welcome back!`,
+        message: action.payload.message,
         showFlash: true
       }
     case 'LOGIN_ERROR':

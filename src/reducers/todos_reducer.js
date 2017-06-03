@@ -20,7 +20,7 @@ export default function todosState (state = initialState, action){
         ...state,
         list: [
           ...state.list.slice(0, payload.index),
-          {...state.list[payload.index], text: payload.todo},
+          {...state.list[payload.index], text: payload.todo },
           ...state.list.slice(payload.index+1, state.list.length)
         ]
       }

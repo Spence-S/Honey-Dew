@@ -26,8 +26,11 @@ class App extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.createTodoThunk(this.state.formVal);
-    this.setState({formVal : ''});
+    if (this.state.formVal) {
+      this.props.createTodoThunk(this.state.formVal);
+      this.setState({formVal : ''});
+    }
+    return;
   }
 
   renderTodoForm = () => {

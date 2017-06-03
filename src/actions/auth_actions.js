@@ -40,8 +40,8 @@ export const getToken = (data) => async (dispatch, getState) => {
     console.log(res)
     let token = res.headers['x-auth'];
     let user = res.data;
-    console.log(user);
-    dispatch(userLogin({token, user}));
+    let message = 'Welcome back!'
+    dispatch(userLogin({token, user, message}));
   } catch (error){
     console.log(error.response);
     const payload = {
@@ -57,7 +57,8 @@ export const getNewUserToken = data => async (dispatch, getState) => {
     let res = await axios.post(`${url}/users/`, data);
     let token = res.headers['x-auth'];
     let user = res.data;
-    dispatch(userLogin({token, user}));
+    let message = 'Thanks for signing up! Now fill up your list! More features coming soon!'
+    dispatch(userLogin({token, user, message}));
   } catch (error){
     console.log(error.response);
     const payload = {

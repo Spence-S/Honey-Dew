@@ -66,8 +66,6 @@ export const updateList = () => async (dispatch, getState) => {
    try{
      let res = await axios.get(`${url}/api`, header);
      res.data.todos = res.data.todos.map(todo => {
-       todo.notes = 'default notes. This is a longer string of notes to see how the notes might wrap around in the well. Well may not be the best thing for this type of thing. This is a long note.';
-       todo.dueDate= '5/27/17';
        return todo;
      })
      dispatch(updateTodos(res.data.todos));

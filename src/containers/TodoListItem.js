@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 import EditableTodoListItem from './EditableTodoListItem';
-import DatePicker from 'react-datepicker';
+//import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -63,7 +63,7 @@ class TodoListItem extends Component{
         Edit
       </button>
     <div style={{'marginTop': '1rem'}}>
-      {this.renderExpandedView()}
+      {/* {this.renderExpandedView()} */}
     </div>
     </li>
   )
@@ -90,7 +90,7 @@ class TodoListItem extends Component{
 
           </div>
           {/* <div className="form-group">
-            <label> due date <span className="fa fa-calendar"/> :</label> 
+            <label> due date <span className="fa fa-calendar"/> :</label>
             <DatePicker
               className="form-control"
               selected={this.state.startDate}
