@@ -28,10 +28,10 @@ export const updateTodos = (todos) => {
   };
 };
 
-export const todosError = (e) => {
+export const todosError = (payload) => {
   return {
     type: TODOS_ERROR,
-    payload: e
+    payload
   }
 };
 
@@ -71,9 +71,13 @@ export const updateList = () => async (dispatch, getState) => {
        return todo;
      })
      dispatch(updateTodos(res.data.todos));
-   }
-   catch(e){
-     dispatch(todosError());
+   } catch (err) {
+     console.log(err.response);
+     const payload = {
+       message: err.response.data,
+       status: 'danger'
+     };
+     dispatch(todosError(payload));
    }
 };
 

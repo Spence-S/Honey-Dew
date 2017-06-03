@@ -47,7 +47,7 @@ export const getToken = (data) => async (dispatch, getState) => {
     const payload = {
       message: error.response.data,
       status: 'danger'
-    }
+    };
     dispatch(loginError(payload));
   }
 }
@@ -65,7 +65,6 @@ export const getNewUserToken = data => async (dispatch, getState) => {
       status: 'danger'
     }
     dispatch(loginError(payload))
-    console.log(error)
   }
 }
 

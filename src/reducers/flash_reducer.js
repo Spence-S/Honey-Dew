@@ -42,7 +42,7 @@ export default function flashState (state = initialState, action){
       return {
         ...state,
         status: 'danger',
-        message: 'There was a problem updating the todo list. Try again.',
+        message: action.payload.response.data,
         showFlash: true
       }
     case HIDE_FLASH:
