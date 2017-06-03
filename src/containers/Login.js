@@ -120,7 +120,7 @@ class Login extends Component{
         <div className="col-md-4">
           <input id="Password"
             name="Password"
-            type="text"
+            type="password"
             className="form-control input-md"
             required=""
             value={ this.state.retypePasswordText }
