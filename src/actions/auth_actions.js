@@ -37,13 +37,11 @@ export const loginError = (payload) => {
 export const getToken = (data) => async (dispatch, getState) => {
   try{
     let res = await axios.post(`${url}/users/login`, data);
-    console.log(res)
     let token = res.headers['x-auth'];
     let user = res.data;
     let message = 'Welcome back!'
     dispatch(userLogin({token, user, message}));
   } catch (error){
-    console.log(error.response);
     const payload = {
       message: error.response.data,
       status: 'danger'
@@ -60,7 +58,6 @@ export const getNewUserToken = data => async (dispatch, getState) => {
     let message = 'Thanks for signing up! Now fill up your list! More features coming soon!'
     dispatch(userLogin({token, user, message}));
   } catch (error){
-    console.log(error.response);
     const payload = {
       message: error.response.data,
       status: 'danger'
@@ -85,10 +82,9 @@ export const logoutThunk = data => async (dispatch, getState) => {
   try{
     let message = await axios.get(`${url}/users/logout`, header);
     message = message.data;
-    console.log("message from logoutThunk:", message);
     dispatch(logout());
   } catch (e){
-    console.log(e);
+    // TODO handle errors correctly if logout fails
     dispatch(logout());
   }
 }
