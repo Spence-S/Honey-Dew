@@ -1,4 +1,4 @@
-*A live demo of the app van be viewed at https://vigorous-advice.surge.sh/ *
+*A live demo of the app van be viewed at https://vigorous-advice.surge.sh/*
 
 # Honey Dew
 
