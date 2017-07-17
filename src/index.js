@@ -17,7 +17,7 @@ import createHistory from 'history/createBrowserHistory';
 
 // components
 import Main from './containers/Main';
-import { rootReducer } from './reducers';
+import { rootReducer } from './rootReducer';
 
 //heleprs
 import { loadState, saveState } from './utils/storage';

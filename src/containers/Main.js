@@ -11,13 +11,14 @@ import { ConnectedRouter } from 'react-router-redux';
 // Components
 import LandingPage from './LandingPage';
 import Auth from './auth/';
-import App from './App';
+import App from './todos';
 import Account from './account';
 import Flash from './flash';
 
-import * as actions from '../actions';
 import { flashActions } from './flash';
 import { authActions } from './auth';
+import { accountActions } from './account';
+import { todosActions } from './todos';
 
 class Main extends Component {
   renderFlashMessage = () => {
@@ -115,7 +116,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-    { ...actions, ...flashActions, ...authActions },
+    {
+      ...flashActions,
+      ...authActions,
+      ...accountActions,
+      ...todosActions
+    },
     dispatch
   );
 }

@@ -1,5 +1,5 @@
 import { LOGIN, LOGOUT } from '../auth/auth_actions';
-import { TODOS_ERROR, TODO_ERROR } from '../../actions/todos_actions';
+import { TODOS_ERROR, TODO_ERROR } from '../todos/todos_actions';
 import { HIDE_FLASH } from './flash_actions';
 
 const initialState = {

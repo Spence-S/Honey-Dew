@@ -1,11 +1,15 @@
+// state slices
 import { authState } from '../containers/auth';
-import todosState from './todos_reducer';
+import { todosState } from '../containers/todos';
 import { flashState } from '../containers/flash';
 import { accountState } from '../containers/account';
-import { combineReducers } from 'redux';
 import { authActions } from '../containers/auth';
+
+// from libraries
+import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
+// state
 export const appReducer = combineReducers({
   authState,
   accountState,

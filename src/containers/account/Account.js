@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-// import FacebookLogin from 'react-facebook-login';
 
 export default class Account extends Component {
   constructor(props) {
@@ -9,11 +8,6 @@ export default class Account extends Component {
       harryBalls: true
     };
   }
-
-  // responseFacebook = (res) => {
-  //   console.log(res);
-  //   this.props.linkFacebook(res);
-  // }
 
   render() {
     if (this.props.authState.isLoggedIn) {
@@ -49,22 +43,6 @@ export default class Account extends Component {
                   changeDisabled
                 />
               </div>
-              {/* <div>
-                <li className='list-group-item'>
-                  <p>Facebook Linked: no</p>
-                  <button className="btn btn-link">Change</button>
-                  <FacebookLogin
-                  appId="1503702696325932"
-                  fields="name,email,picture"
-                  scope="public_profile"
-                  callback={this.responseFacebook}
-                  icon="fa-facebook"
-                  textButton="Link FB"
-                  size="small"
-                  style={{borderRadius: '5px' }}
-                  />
-                </li>
-              </div> */}
             </ul>
             <button
               className="btn btn-primary"

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '.';
+import { authActions } from './';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 
@@ -184,12 +184,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      ...actions
-    },
-    dispatch
-  );
+  return bindActionCreators({ ...authActions }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

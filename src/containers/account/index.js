@@ -1,4 +1,5 @@
 import Account from './Account';
+import * as accountActions from './account_actions';
 export default Account;
-export * from './account_actions';
+export { accountActions };
 export { accountState } from './account_reducer';
