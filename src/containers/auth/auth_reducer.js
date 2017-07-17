@@ -5,7 +5,7 @@ const initialState = {
   token: ''
 };
 
-export const authState = function authState(state = initialState, action) {
+export const authState = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
       return {

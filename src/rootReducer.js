@@ -1,9 +1,9 @@
 // state slices
-import { authState } from '../containers/auth';
-import { todosState } from '../containers/todos';
-import { flashState } from '../containers/flash';
-import { accountState } from '../containers/account';
-import { authActions } from '../containers/auth';
+import { authState } from './containers/auth';
+import { todosState } from './containers/todos';
+import { flashState } from './containers/flash';
+import { accountState } from './containers/account';
+import { authActions } from './containers/auth';
 
 // from libraries
 import { combineReducers } from 'redux';
