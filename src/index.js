@@ -1,9 +1,9 @@
 // dependencies
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
-import { routerMiddleware } from 'react-router-redux'
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { routerMiddleware } from 'react-router-redux';
 
 // middleware
 import thunkMiddleware from 'redux-thunk';
@@ -13,11 +13,11 @@ import logger from 'redux-logger'; // dev use!
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import './index.css';
-import createHistory from 'history/createBrowserHistory'
+import createHistory from 'history/createBrowserHistory';
 
 // components
 import Main from './containers/Main';
-import {rootReducer} from './reducers';
+import { rootReducer } from './reducers';
 
 //heleprs
 import { loadState, saveState } from './utils/storage';
@@ -32,11 +32,7 @@ const persistedState = loadState();
 let store = createStore(
   rootReducer,
   persistedState,
-  applyMiddleware(
-    thunkMiddleware,
-    logger,
-    routerMW
-  )
+  applyMiddleware(thunkMiddleware, logger, routerMW)
 );
 window.store = store;
 // save state changed in local storage
@@ -47,7 +43,7 @@ store.subscribe(() => {
 ReactDOM.render(
   <Provider store={store}>
     {/* <ConnectedRouter history={history}> */}
-      <Main />
+    <Main />
     {/* </ConnectedRouter> */}
   </Provider>,
   document.getElementById('root')

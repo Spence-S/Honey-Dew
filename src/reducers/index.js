@@ -1,23 +1,24 @@
-import authState from './auth_reducer';
+import { authState } from '../containers/auth';
 import todosState from './todos_reducer';
-import flashState from './flash_reducer';
-import userState from './user_reducer';
+import { flashState } from '../containers/flash';
+import { accountState } from '../containers/account';
 import { combineReducers } from 'redux';
-import { LOGOUT } from '../actions/auth_actions';
-import { routerReducer } from 'react-router-redux'
-
+import { authActions } from '../containers/auth';
+import { routerReducer } from 'react-router-redux';
 
 export const appReducer = combineReducers({
   authState,
-  userState,
+  accountState,
   todosState,
   flashState,
   router: routerReducer
 });
 
+const { LOGOUT } = authActions;
+
 export const rootReducer = (state, action) => {
   if (action.type === LOGOUT) {
     state = undefined;
   }
-  return appReducer(state, action)
-}
+  return appReducer(state, action);
+};
