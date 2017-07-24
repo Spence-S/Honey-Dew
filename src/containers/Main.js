@@ -11,7 +11,7 @@ import { ConnectedRouter } from 'react-router-redux';
 // Components
 import LandingPage from './LandingPage';
 import Auth from './auth/';
-import App from './todos';
+import TodoList from './todos';
 import Account from './account';
 import Flash from './flash';
 
@@ -54,8 +54,8 @@ class Main extends Component {
                 <LinkContainer exact to="/">
                   <NavItem>Home</NavItem>
                 </LinkContainer>
-                <LinkContainer to="/App">
-                  <NavItem>App</NavItem>
+                <LinkContainer to="/TodoList">
+                  <NavItem>TodoList</NavItem>
                 </LinkContainer>
                 {this.props.authState.isLoggedIn
                   ? // Make logout logout immediately when logged in
@@ -95,11 +95,11 @@ class Main extends Component {
             <Route exact path="/" component={LandingPage} />
             <Route
               exact
-              path="/App"
+              path="/TodoList"
               render={() =>
                 !this.props.authState.isLoggedIn
                   ? <Redirect to="/Auth" />
-                  : <App />}
+                  : <TodoList />}
             />
             <Route path="/Auth" component={Auth} />
             <Route path="/Account" render={() => <Account {...this.props} />} />

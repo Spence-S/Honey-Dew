@@ -4,6 +4,7 @@ import { todosState } from './containers/todos';
 import { flashState } from './containers/flash';
 import { accountState } from './containers/account';
 import { authActions } from './containers/auth';
+import { listState } from './containers/manager';
 
 // from libraries
 import { combineReducers } from 'redux';
@@ -15,6 +16,7 @@ export const appReducer = combineReducers({
   accountState,
   todosState,
   flashState,
+  listState,
   router: routerReducer
 });
 

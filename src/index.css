@@ -1,38 +1,43 @@
 @import url('https://fonts.googleapis.com/css?family=Dancing+Script');
 
-.fancy{
+.fancy {
   font-family: 'Dancing Script', cursive;
   font-size: 8rem;
   color: gold;
 }
-.small{
+.small {
   font-size: 3rem;
 }
 .modal-container {
   position: relative;
 }
-.modal-container .modal, .modal-container .modal-backdrop {
+.modal-container .modal,
+.modal-container .modal-backdrop {
   position: absolute;
 }
-.list-group-item{
+.list-group-item {
   border-width: 0px 0px 1px 0px;
   border-radius: 0px !important;
 }
-.well{
+.well {
   border-radius: 1px;
 }
-.noouter{
+.noouter {
   position: absolute;
   top: .001rem;
-  right:.2rem;
+  right: .2rem;
 }
-.list-group-item-top{
+.list-group-item-top {
   border-width: 0px 0px 1px 0px;
 }
-.strike{
+.strike {
   text-decoration: line-through;
 }
-.tiny{
+.tiny {
   height: 40px;
   width: 40px;
+}
+
+.mt-3 {
+  margin-top: 3px;
 }

@@ -1,0 +1,101 @@
+import axios from 'axios';
+// import * as s from '../utils/storage';
+import { updateTodos, CREATE_TODO } from '../todos/todos_actions';
+
+// types
+export const CREATE_LIST = 'CREATE_LIST';
+export const SET_ACTIVE = 'SET_ACTIVE';
+export const INIT_LISTS = 'INIT_LISTS';
+
+// other action creators needed
+
+// constants
+//const url='https://mighty-falls-76862.herokuapp.com/';
+const url = process.env.REACT_APP_API_URL;
+
+//helper
+const getHeader = getState => ({
+  headers: { 'x-auth': getState().authState.token }
+});
+
+// Create a new empty list in the applcation
+export const createList = list => {
+  return {
+    type: CREATE_LIST,
+    payload: { list }
+  };
+};
+
+// initialize the lists
+export const initLists = lists => {
+  console.log(lists);
+  return {
+    type: INIT_LISTS,
+    payload: lists
+  };
+};
+
+// set activeList
+export const setActiveList = list => ({
+  type: SET_ACTIVE,
+  payload: list
+});
+
+// create a todo list
+export const createTodo = todo => {
+  return {
+    type: CREATE_TODO,
+    payload: { todo }
+  };
+};
+
+// Send the post request to make the new list on the backend
+export const postList = name => async (dispatch, getState) => {
+  const header = getHeader(getState);
+  try {
+    let res = await axios.post(`${url}/lists`, { name }, header);
+    dispatch(createList(res.data));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getAllLists = () => async (dispatch, getState) => {
+  const header = getHeader(getState);
+  try {
+    console.log('get all lists was called - from action');
+    let res = await axios.get(`${url}/lists`, header);
+    dispatch(initLists(res.data));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getList = list => async (dispatch, getState) => {
+  const header = getHeader(getState);
+  dispatch(setActiveList(list));
+  try {
+    let res = await axios.get(`${url}/lists/${list._id}`, header);
+    res.data.todos = res.data.todos.map(todo => {
+      return todo;
+    });
+    console.log(res.data.todos);
+    return dispatch(updateTodos(res.data.todos));
+  } catch (err) {
+    // just log err for now TODO handle appropriatley
+    console.log(err);
+  }
+};
+
+export const postTodo = (list, text) => async (dispatch, getState) => {
+  const { _id } = list;
+  const header = getHeader(getState);
+  try {
+    console.log('sending POST to lists/:id');
+    let res = await axios.post(`${url}/lists/${_id}`, { text }, header);
+    dispatch(createTodo(res.data.newTodo));
+    dispatch(initLists(res.data.list));
+  } catch (e) {
+    console.log(e);
+  }
+};
