@@ -28,7 +28,7 @@ export const createList = list => {
 
 // initialize the lists
 export const initLists = lists => {
-  console.log(lists);
+  console.log('lists from initLists', lists);
   return {
     type: INIT_LISTS,
     payload: lists
@@ -63,7 +63,6 @@ export const postList = name => async (dispatch, getState) => {
 export const getAllLists = () => async (dispatch, getState) => {
   const header = getHeader(getState);
   try {
-    console.log('get all lists was called - from action');
     let res = await axios.get(`${url}/lists`, header);
     dispatch(initLists(res.data));
   } catch (e) {
@@ -79,7 +78,6 @@ export const getList = list => async (dispatch, getState) => {
     res.data.todos = res.data.todos.map(todo => {
       return todo;
     });
-    console.log(res.data.todos);
     return dispatch(updateTodos(res.data.todos));
   } catch (err) {
     // just log err for now TODO handle appropriatley
@@ -87,6 +85,7 @@ export const getList = list => async (dispatch, getState) => {
   }
 };
 
+// POST request to lists/:id then subsequent GET request to /lists update lists view
 export const postTodo = (list, text) => async (dispatch, getState) => {
   const { _id } = list;
   const header = getHeader(getState);
@@ -94,7 +93,8 @@ export const postTodo = (list, text) => async (dispatch, getState) => {
     console.log('sending POST to lists/:id');
     let res = await axios.post(`${url}/lists/${_id}`, { text }, header);
     dispatch(createTodo(res.data.newTodo));
-    dispatch(initLists(res.data.list));
+    let res2 = await axios.get(`${url}/lists`, header);
+    dispatch(initLists(res2.data));
   } catch (e) {
     console.log(e);
   }

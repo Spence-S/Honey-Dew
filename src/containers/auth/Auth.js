@@ -72,7 +72,7 @@ class Auth extends Component {
 
   render() {
     if (this.props.authState.isLoggedIn) {
-      return <Redirect to="App" />;
+      return <Redirect to="TodoList" />;
     } else {
       return (
         <div>
