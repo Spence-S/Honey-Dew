@@ -20,7 +20,6 @@ class TodoList extends Component {
 
   componentDidMount = () => {
     console.log(this.props);
-    this.props.updateList();
   };
 
   handleChange = e => {
@@ -30,7 +29,10 @@ class TodoList extends Component {
   handleSubmit = e => {
     e.preventDefault();
     if (this.state.formVal) {
-      this.props.postTodo(this.props.listState.activeList, this.state.formVal);
+      this.props.postListItem(
+        this.props.listState.activeList,
+        this.state.formVal
+      );
       this.setState({ formVal: '' });
     }
     return;
@@ -84,7 +86,8 @@ class TodoList extends Component {
                   dueDate={todo.dueDate}
                   callBack={this.refreshState}
                   editTodo={this.props.editTodo}
-                  deleteTodo={this.props.deleteTodoThunk}
+                  deleteTodo={this.props.deleteListItem}
+                  listId={this.props.listState.activeList._id}
                 />
               );
             })}

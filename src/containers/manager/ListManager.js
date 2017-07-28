@@ -18,7 +18,11 @@ class ListManager extends Component {
   renderLists = () =>
     this.props.listState.lists.map((list, index) =>
       <button
-        className="btn btn-default btn-group"
+        className={
+          list.name == this.props.listState.activeList.name
+            ? 'btn btn-info btn-group'
+            : 'btn btn-default btn-group'
+        }
         key={index}
         onClick={() => {
           this.props.getList(list);

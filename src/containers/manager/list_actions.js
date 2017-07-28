@@ -1,11 +1,12 @@
 import axios from 'axios';
 // import * as s from '../utils/storage';
-import { updateTodos, CREATE_TODO } from '../todos/todos_actions';
+import { updateTodos, CREATE_TODO, todosError } from '../todos/todos_actions';
 
 // types
 export const CREATE_LIST = 'CREATE_LIST';
 export const SET_ACTIVE = 'SET_ACTIVE';
 export const INIT_LISTS = 'INIT_LISTS';
+export const DELETE_TODO = 'DELETE_TODO';
 
 // other action creators needed
 
@@ -49,6 +50,14 @@ export const createTodo = todo => {
   };
 };
 
+// delete a todo
+export const deleteTodo = index => {
+  return {
+    type: DELETE_TODO,
+    payload: index
+  };
+};
+
 // Send the post request to make the new list on the backend
 export const postList = name => async (dispatch, getState) => {
   const header = getHeader(getState);
@@ -61,10 +70,18 @@ export const postList = name => async (dispatch, getState) => {
 };
 
 export const getAllLists = () => async (dispatch, getState) => {
+  console.log('called get all lists');
   const header = getHeader(getState);
   try {
     let res = await axios.get(`${url}/lists`, header);
     dispatch(initLists(res.data));
+    console.log(
+      'conditional in get all lists',
+      getState().listState.activeList.name
+    );
+    if (!getState().listState.activeList.name) {
+      dispatch(setActiveList(res.data[0]));
+    }
   } catch (e) {
     console.log(e);
   }
@@ -86,7 +103,7 @@ export const getList = list => async (dispatch, getState) => {
 };
 
 // POST request to lists/:id then subsequent GET request to /lists update lists view
-export const postTodo = (list, text) => async (dispatch, getState) => {
+export const postListItem = (list, text) => async (dispatch, getState) => {
   const { _id } = list;
   const header = getHeader(getState);
   try {
@@ -97,5 +114,23 @@ export const postTodo = (list, text) => async (dispatch, getState) => {
     dispatch(initLists(res2.data));
   } catch (e) {
     console.log(e);
+  }
+};
+
+export const deleteListItem = (listId, listItemId, index) => async (
+  dispatch,
+  getState
+) => {
+  dispatch(deleteTodo(index));
+  const header = getHeader(getState);
+  try {
+    let res = await axios.delete(
+      `${url}/lists/${listId}/${listItemId}`,
+      header
+    );
+    let res2 = await axios.get(`${url}/lists`, header);
+    dispatch(initLists(res2.data));
+  } catch (e) {
+    dispatch(todosError(e));
   }
 };

@@ -15,7 +15,7 @@ class TodoListItem extends Component {
 
   handleClick = e => {
     e.preventDefault();
-    this.props.deleteTodo(this.props.id, this.props.index);
+    this.props.deleteTodo(this.props.listId, this.props.id, this.props.index);
   };
 
   handleEditClick = () => {
