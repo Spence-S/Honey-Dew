@@ -128,15 +128,15 @@ class TodoListItem extends Component {
   }
 }
 
-class CalendarIconPicker extends Component {
-  render() {
-    return (
-      <div>
-        due: <span className="fa fa-calendar" onClick={this.props.onClick} />
-        <div>{this.props.value}</div>
-      </div>
-    );
-  }
-}
+// class CalendarIconPicker extends Component {
+//   render() {
+//     return (
+//       <div>
+//         due: <span className="fa fa-calendar" onClick={this.props.onClick} />
+//         <div>{this.props.value}</div>
+//       </div>
+//     );
+//   }
+// }
 
 export default TodoListItem;

@@ -22,6 +22,7 @@ export const listState = (state = initialState, action) => {
         ...state,
         activeList: action.payload
       };
+    default:
+      return state;
   }
-  return state;
 };

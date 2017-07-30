@@ -9,62 +9,64 @@ export const LOGIN_ERROR = 'LOGIN_ERROR';
 // env vars
 const url = process.env.REACT_APP_API_URL;
 
-const getHeader = getState => ({ headers : { 'x-auth': getState().authState.token } });
-
+const getHeader = getState => ({
+  headers: { 'x-auth': getState().authState.token }
+});
 
 // action creators
-export const userLogin = (payload) => {
+export const userLogin = payload => {
   return {
     type: LOGIN,
     payload
-  }
-}
+  };
+};
 
 export const logout = () => {
   localStorage.clear();
   // dispatch((() => ({ type: LOGOUT }))());
   return { type: LOGOUT };
-}
+};
 
-export const loginError = (payload) => {
+export const loginError = payload => {
   return {
     type: LOGIN_ERROR,
     payload
-  }
-}
+  };
+};
 
 // thunks
-export const getToken = (data) => async (dispatch, getState) => {
-  try{
+export const getToken = data => async (dispatch, getState) => {
+  try {
     let res = await axios.post(`${url}/users/login`, data);
     let token = res.headers['x-auth'];
     let user = res.data;
-    let message = 'Welcome back!'
-    dispatch(userLogin({token, user, message}));
-  } catch (error){
+    let message = 'Welcome back!';
+    dispatch(userLogin({ token, user, message }));
+  } catch (error) {
     const payload = {
       message: error.response.data,
       status: 'danger'
     };
     dispatch(loginError(payload));
   }
-}
+};
 
 export const getNewUserToken = data => async (dispatch, getState) => {
-  try{
+  try {
     let res = await axios.post(`${url}/users/`, data);
     let token = res.headers['x-auth'];
     let user = res.data;
-    let message = 'Thanks for signing up! Now fill up your list! More features coming soon!'
-    dispatch(userLogin({token, user, message}));
-  } catch (error){
+    let message =
+      'Thanks for signing up! Now fill up your list! More features coming soon!';
+    dispatch(userLogin({ token, user, message }));
+  } catch (error) {
     const payload = {
       message: error.response.data,
       status: 'danger'
-    }
-    dispatch(loginError(payload))
+    };
+    dispatch(loginError(payload));
   }
-}
+};
 
 // export const getTokenWithFacebook = data => async (dispatch, getState) => {
 //   try{
@@ -79,12 +81,11 @@ export const getNewUserToken = data => async (dispatch, getState) => {
 
 export const logoutThunk = data => async (dispatch, getState) => {
   const header = getHeader(getState);
-  try{
-    let message = await axios.get(`${url}/users/logout`, header);
-    message = message.data;
+  try {
+    await axios.get(`${url}/users/logout`, header);
     dispatch(logout());
-  } catch (e){
+  } catch (e) {
     // TODO handle errors correctly if logout fails
     dispatch(logout());
   }
-}
+};

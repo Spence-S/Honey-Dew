@@ -84,10 +84,12 @@ export const updateList = () => async (dispatch, getState) => {
 
 export const editTodo = (text, id, index) => async (dispatch, getState) => {
   dispatch(updateTodo(text, index));
+  console.log(`text: ${text} \n id: ${id} \n index: ${index}`);
   const header = getHeader(getState);
   try {
     let res = await axios.put(`${url}/lists/listitem/${id}`, { text }, header);
     //ensure syncing with api
+    console.log(res);
     let todo = res.data;
     dispatch(updateTodo(todo.text, index));
   } catch (e) {
@@ -113,7 +115,7 @@ export const deleteTodoThunk = (_id, index) => async (dispatch, getState) => {
   dispatch(deleteTodo(index));
   const header = getHeader(getState);
   try {
-    let res = await axios.delete(`${url}/lists/listitem/${_id}`, header);
+    await axios.delete(`${url}/lists/listitem/${_id}`, header);
     getAllLists();
   } catch (e) {
     dispatch(todosError(e));

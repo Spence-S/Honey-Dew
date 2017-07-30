@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import TodoListItem from './components/TodoListItem';
 import ListManager from '../manager';
+import UserList from '../userList/UserList';
 
 // action creators
 import * as todosActions from './todos_actions';
@@ -93,7 +94,7 @@ class TodoList extends Component {
             })}
           </ul>
         </div>
-        <div className="col-xs-0 col-sm-2 col-md-2 col-lg-2" />
+        <UserList />
       </div>
     </div>;
 

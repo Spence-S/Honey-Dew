@@ -19,7 +19,7 @@ class ListManager extends Component {
     this.props.listState.lists.map((list, index) =>
       <button
         className={
-          list.name == this.props.listState.activeList.name
+          list.name === this.props.listState.activeList.name
             ? 'btn btn-info btn-group'
             : 'btn btn-default btn-group'
         }

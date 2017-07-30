@@ -124,10 +124,7 @@ export const deleteListItem = (listId, listItemId, index) => async (
   dispatch(deleteTodo(index));
   const header = getHeader(getState);
   try {
-    let res = await axios.delete(
-      `${url}/lists/${listId}/${listItemId}`,
-      header
-    );
+    await axios.delete(`${url}/lists/${listId}/${listItemId}`, header);
     let res2 = await axios.get(`${url}/lists`, header);
     dispatch(initLists(res2.data));
   } catch (e) {
