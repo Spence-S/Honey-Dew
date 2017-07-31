@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import TodoListItem from './components/TodoListItem';
-import ListManager from '../manager';
+import ListManager from '../ListSelector/ListSelector';
 import UserList from '../userList/UserList';
 
 // action creators
@@ -20,7 +20,8 @@ class TodoList extends Component {
   }
 
   componentDidMount = () => {
-    console.log(this.props);
+    //console.log(this.props);
+    return;
   };
 
   handleChange = e => {

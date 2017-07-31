@@ -10,11 +10,9 @@ class UserList extends Component {
   };
 
   renderUserList = () =>
-    this.props.userListState.userList.map(user => {
-      console.log(user);
-      console.log(user.userName);
+    this.props.userListState.userList.map((user, index) => {
       return (
-        <div className="panel">
+        <div className="panel" key={index + 10000}>
           <h2>
             {user.userName}
           </h2>

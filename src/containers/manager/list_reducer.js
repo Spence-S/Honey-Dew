@@ -2,7 +2,9 @@ import { CREATE_LIST, SET_ACTIVE, INIT_LISTS } from './list_actions';
 
 const initialState = {
   lists: [],
-  activeList: {}
+  activeList: {
+    name: 'apples'
+  }
 };
 
 export const listState = (state = initialState, action) => {

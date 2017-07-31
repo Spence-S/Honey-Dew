@@ -29,7 +29,7 @@ const routerMW = routerMiddleware(history);
 const persistedState = loadState();
 
 // createStore
-let store = createStore(
+export let store = createStore(
   rootReducer,
   persistedState,
   applyMiddleware(thunkMiddleware, logger, routerMW)
