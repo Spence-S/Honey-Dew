@@ -17,7 +17,7 @@ class ListContainer extends Component {
             this.props.createListItem(listItemText)}
         />
         <List
-          list={[{ text: '123', _id: 1234 }]}
+          list={this.props.listState.activeList.list}
           deleteListItem={this.props.deleteListItem}
           updateListItem={this.props.updateListItem}
         />

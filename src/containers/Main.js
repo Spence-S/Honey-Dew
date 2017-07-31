@@ -14,7 +14,7 @@ import Auth from './auth/';
 // import TodoList from './todos';
 import Account from './account';
 import Flash from './flash';
-import List from './List';
+import App from './App';
 
 import { flashActions } from './flash';
 import { authActions } from './auth';
@@ -51,7 +51,7 @@ class Main extends Component {
               render={() =>
                 !this.props.authState.isLoggedIn
                   ? <Redirect to="/Auth" />
-                  : <List />}
+                  : <App />}
             />
             <Route path="/Auth" component={Auth} />
             <Route path="/Account" render={() => <Account {...this.props} />} />
@@ -62,19 +62,17 @@ class Main extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapState(state) {
   return { ...state };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatch(dispatch) {
   return bindActionCreators(
     {
       ...flashActions,
-      ...authActions,
-      ...accountActions,
-      ...todosActions
+      ...accountActions
     },
     dispatch
   );
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapState, mapDispatch)(Main);

@@ -3,4 +3,4 @@ import * as listActions from './actions';
 export default List;
 export { listActions };
 export * from './action_types';
-export { listState } from './reducer';
+//export { listState } from './reducer';

@@ -12,16 +12,8 @@ class ActiveListSelector extends Component {
     };
   }
 
-  componentDidMount = async () => {
-    const lists = await axios.get(`${url}/lists`, {
-      headers: { 'x-auth': this.props.token }
-    });
-    this.setState({ lists: lists.data });
-  };
-
   renderLists = () =>
-    //this.props.listState.lists.map((list, index) =>
-    this.state.lists.map((list, index) =>
+    this.props.lists.map((list, index) =>
       <button
         className={
           list.name === this.props.activeList

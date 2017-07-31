@@ -42,6 +42,11 @@ export const setActiveList = list => ({
   payload: list
 });
 
+export const refreshList = list => ({
+  type: 'REFRESH_LIST',
+  payload: list
+});
+
 // create a todo list
 export const createTodo = todo => {
   return {
@@ -95,7 +100,7 @@ export const getList = list => async (dispatch, getState) => {
     res.data.todos = res.data.todos.map(todo => {
       return todo;
     });
-    return dispatch(updateTodos(res.data.todos));
+    return dispatch(refreshList(res.data.todos));
   } catch (err) {
     // just log err for now TODO handle appropriatley
     console.log(err);
