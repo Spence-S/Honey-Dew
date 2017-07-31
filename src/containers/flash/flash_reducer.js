@@ -1,5 +1,4 @@
 import { LOGIN, LOGOUT } from '../auth/auth_actions';
-import { TODOS_ERROR, TODO_ERROR } from '../todos/todos_actions';
 import { HIDE_FLASH } from './flash_actions';
 
 const initialState = {
@@ -31,20 +30,20 @@ export const flashState = (state = initialState, action) => {
         message: 'All logged out! Come back soon :)',
         showFlash: true
       };
-    case TODO_ERROR:
-      return {
-        ...state,
-        status: 'danger',
-        message: 'There was an error with that particular todo action',
-        showFlash: true
-      };
-    case TODOS_ERROR:
-      return {
-        ...state,
-        status: 'danger',
-        message: action.payload.response.data,
-        showFlash: true
-      };
+    // case TODO_ERROR:
+    //   return {
+    //     ...state,
+    //     status: 'danger',
+    //     message: 'There was an error with that particular todo action',
+    //     showFlash: true
+    //   };
+    // case TODOS_ERROR:
+    //   return {
+    //     ...state,
+    //     status: 'danger',
+    //     message: action.payload.response.data,
+    //     showFlash: true
+    //   };
     case HIDE_FLASH:
       return {
         ...state,

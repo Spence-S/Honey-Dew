@@ -17,9 +17,8 @@ import Flash from './flash';
 import App from './App';
 
 import { flashActions } from './flash';
-import { authActions } from './auth';
+// import { authActions } from './auth';
 import { accountActions } from './account';
-import { todosActions } from './todos';
 
 class Main extends Component {
   renderFlashMessage = () => {

@@ -12,26 +12,18 @@ import ActiveListSelector from './components/ActiveListSelector';
 import ListCreator from './components/ListCreator';
 
 class ListSelector extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      addListFormValue: ''
-    };
-  }
-
   render() {
     return (
       <div>
         <ListCreator
-          changeFormValue={value => this.setState({ addListFormValue: value })}
-          postListName={() => this.props.postList(this.state.addListFormValue)}
+          postListName={() =>
+            this.props.createList(this.state.addListFormValue)}
         />
         <ActiveListSelector
-          postList={list => this.props.postList(list)}
-          getList={list => this.props.getList(list)}
+          postList={list => this.props.createList(list)}
+          getList={list => this.props.readList(list)}
           setActive={list => this.props.setActiveList(list)}
           activeList={this.props.listState.activeList.name}
-          token={this.props.authState.token}
         />
       </div>
     );

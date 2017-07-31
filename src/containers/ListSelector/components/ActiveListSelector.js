@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-const url = process.env.REACT_APP_API_URL;
 
 class ActiveListSelector extends Component {
   constructor(props) {
@@ -22,7 +21,7 @@ class ActiveListSelector extends Component {
         }
         key={index}
         onClick={() => {
-          this.props.getList(list);
+          this.props.readList(list);
         }}
       >
         {list.name} <span className="badge">{list.todoIds.length}</span>

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
-import * as listActions from './actions';
+import { listActions } from '../ListSelector';
 
 import ListForm from './components/ListForm';
 import List from './components/List';

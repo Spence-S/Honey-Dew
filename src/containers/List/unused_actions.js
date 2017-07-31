@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as ACTIONS from './action_types';
 
-import { getAllLists } from '../manager/list_actions';
+import { getAllLists } from '../ListSelector/actions';
 const url = process.env.REACT_APP_API_URL;
 
 //helper

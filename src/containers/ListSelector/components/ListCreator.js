@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class ListCreator extends Component {
+  state = {
+    value: ''
+  };
+
   render() {
     return (
       <div className="row">
@@ -9,8 +13,8 @@ export default class ListCreator extends Component {
           type="submit"
           className="btn btn-inverse"
           onClick={() => {
-            this.props.postListName();
-            return this.props.changeFormValue('');
+            this.props.createList(this.state.value);
+            this.setState({ value: '' });
           }}
         >
           Add New List
@@ -28,6 +32,5 @@ export default class ListCreator extends Component {
 }
 
 ListCreator.propTypes = {
-  changeFormValue: PropTypes.func.isRequired,
-  postListName: PropTypes.func.isRequired
+  createList: PropTypes.func.isRequired
 };

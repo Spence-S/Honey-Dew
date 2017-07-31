@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { flashActions } from '../flash';
 import { authActions } from '../auth';
 import { accountActions } from '../account';
-import { listActions } from '../List';
+import { listActions } from '../ListSelector';
 
 class NavBar extends Component {
   render() {
