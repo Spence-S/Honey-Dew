@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import EditableTodoListItem from './EditableListItem';
+import EditableTodoListItem from './EditableTodoListItem';
 
 class TodoListItem extends Component {
   constructor(props) {

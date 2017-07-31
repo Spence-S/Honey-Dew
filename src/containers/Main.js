@@ -5,15 +5,18 @@ import { Route, Redirect, Link } from 'react-router-dom';
 import { Nav, Navbar, NavItem, MenuItem, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
+import NavBar from './nav/NavBar';
+
 import { history } from '..';
 import { ConnectedRouter } from 'react-router-redux';
 
 // Components
 import LandingPage from './LandingPage';
 import Auth from './auth/';
-import TodoList from './todos';
+// import TodoList from './todos';
 import Account from './account';
 import Flash from './flash';
+import List from './List';
 
 import { flashActions } from './flash';
 import { authActions } from './auth';
@@ -39,6 +42,7 @@ class Main extends Component {
   render() {
     return (
       <ConnectedRouter history={history}>
+        {/*<NavBar authState={this.props.authState} />*/}
         <div>
           <Navbar fluid collapseOnSelect>
             <Navbar.Header>
@@ -84,8 +88,6 @@ class Main extends Component {
                   <LinkContainer to="/account">
                     <MenuItem>Account</MenuItem>
                   </LinkContainer>
-                  {/* <MenuItem>Notifications</MenuItem>
-                  <MenuItem>Stats</MenuItem> */}
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>
@@ -99,7 +101,7 @@ class Main extends Component {
               render={() =>
                 !this.props.authState.isLoggedIn
                   ? <Redirect to="/Auth" />
-                  : <TodoList />}
+                  : <List />}
             />
             <Route path="/Auth" component={Auth} />
             <Route path="/Account" render={() => <Account {...this.props} />} />

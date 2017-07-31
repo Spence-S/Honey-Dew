@@ -1,6 +1,6 @@
 import ListManager from './ListManager';
 import * as listActions from './list_actions';
-import { listState } from './list_reducer';
+import { listsState } from './list_reducer';
 
-export { listActions, listState };
+export { listActions, listsState };
 export default ListManager;

@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
+
+//redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as listActions from '../manager/list_actions';
+
+// actions
+import * as listActions from './actions';
+
+// components
 import ActiveListSelector from './components/ActiveListSelector';
 import ListCreator from './components/ListCreator';
 
@@ -32,12 +38,12 @@ class ListSelector extends Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapState = state => {
   return { ...state };
-}
+};
 
-function mapDispatchToProps(dispatch) {
+const mapDispatch = dispatch => {
   return bindActionCreators({ ...listActions }, dispatch);
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListSelector);
+export default connect(mapState, mapDispatch)(ListSelector);

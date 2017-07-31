@@ -7,7 +7,7 @@ const initialState = {
   }
 };
 
-export const listState = (state = initialState, action) => {
+export const listsState = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_LIST:
       return {

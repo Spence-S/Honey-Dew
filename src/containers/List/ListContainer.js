@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import bindActionCreators from 'redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
 import * as listActions from './actions';
@@ -17,7 +17,7 @@ class ListContainer extends Component {
             this.props.createListItem(listItemText)}
         />
         <List
-          list={this.props.list}
+          list={[{ text: '123', _id: 1234 }]}
           deleteListItem={this.props.deleteListItem}
           updateListItem={this.props.updateListItem}
         />

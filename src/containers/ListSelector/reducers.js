@@ -1,50 +1,28 @@
-import {
-  UPDATE_TODOS,
-  UPDATE_TODO,
-  TODOS_ERROR,
-  CREATE_TODO,
-  DELETE_TODO
-} from './todos_actions';
+import { CREATE_LIST, SET_ACTIVE, INIT_LISTS } from './list_actions';
 
 const initialState = {
-  list: [],
-  error: ''
+  lists: [],
+  activeList: {
+    name: 'apples'
+  }
 };
 
-export const listState = (state = initialState, action) => {
-  const { type, payload } = action;
-  switch (type) {
-    case UPDATE_TODOS:
+export const listsState = (state = initialState, action) => {
+  switch (action.type) {
+    case CREATE_LIST:
       return {
         ...state,
-        list: [...payload]
+        lists: [...state.lists, action.payload.list]
       };
-    case UPDATE_TODO:
+    case INIT_LISTS:
       return {
         ...state,
-        list: [
-          ...state.list.slice(0, payload.index),
-          { ...state.list[payload.index], text: payload.todo },
-          ...state.list.slice(payload.index + 1, state.list.length)
-        ]
+        lists: action.payload
       };
-    case CREATE_TODO:
+    case SET_ACTIVE:
       return {
         ...state,
-        list: [...state.list, payload.todo]
-      };
-    case TODOS_ERROR:
-      return {
-        ...state,
-        error: console.log(action.payload)
-      };
-    case DELETE_TODO:
-      return {
-        ...state,
-        list: [
-          ...state.list.slice(0, payload),
-          ...state.list.slice(payload + 1)
-        ]
+        activeList: action.payload
       };
     default:
       return state;

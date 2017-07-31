@@ -42,9 +42,7 @@ store.subscribe(() => {
 
 ReactDOM.render(
   <Provider store={store}>
-    {/* <ConnectedRouter history={history}> */}
     <Main />
-    {/* </ConnectedRouter> */}
   </Provider>,
   document.getElementById('root')
 );

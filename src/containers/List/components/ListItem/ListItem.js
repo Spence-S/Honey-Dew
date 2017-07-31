@@ -39,9 +39,7 @@ class ListItem extends Component {
                 this.props.index
               )}
             style={{ marginLeft: 10 }}
-          >
-            X
-          </span>
+          />
           <button
             className="btn btn-link btn-xs pull-right"
             onClick={() => this.setState({ editable: !this.state.editable })}
