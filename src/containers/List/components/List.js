@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import ListItem from './ListItem/ListItem';
-import EditableListItem from './ListItem/EditableListItem';
 
 class List extends Component {
   render() {
