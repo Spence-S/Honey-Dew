@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import EditableTodoListItem from './EditableTodoListItem';
-import moment from 'moment';
-import 'react-datepicker/dist/react-datepicker.css';
+import EditableTodoListItem from './EditableListItem';
 
 class TodoListItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      editable: false,
-      expandedView: false,
-      startDate: moment()
+      editable: false
     };
   }
 
@@ -32,13 +28,10 @@ class TodoListItem extends Component {
     <div>
       <EditableTodoListItem
         text={this.props.item}
-        todoListItemView={this.handleEditClick}
         id={this.props.id}
         index={this.props.index}
-        refreshState={this.props.callBack}
-        editTodo={this.props.editTodo}
+        editListItem={this.props.editTodo}
       />
-      {this.renderExpandedView()}
     </div>;
 
   renderItem = () =>
@@ -78,38 +71,6 @@ class TodoListItem extends Component {
         {/* {this.renderExpandedView()} */}
       </div>
     </li>;
-
-  renderExpandedView = () =>
-    <div>
-      {this.state.expandedView
-        ? // <div> <u>notes:</u>
-          //   <div className="well">
-          //     {this.props.notes}
-          //   </div>
-          //   <span className='fa fa-calendar' /> due: {this.props.dueDate}
-          // </div>
-
-          <form className="form well">
-            <div className="form-group">
-              notes:
-              <textarea
-                className="form-control"
-                placeholder={this.props.notes}
-                rows="3"
-              />
-            </div>
-            {/* <div className="form-group">
-            <label> due date <span className="fa fa-calendar"/> :</label>
-            <DatePicker
-              className="form-control"
-              selected={this.state.startDate}
-              onChange={(date)=>(this.setState({startDate: date}))}
-              customInput={<CalendarIconPicker />}
-            />
-          </div> */}
-          </form>
-        : null}
-    </div>;
 
   render() {
     if (this.state.editable) {

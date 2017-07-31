@@ -50,11 +50,11 @@ class ActiveListSelector extends Component {
   }
 }
 
-// ActiveListSelector.propTypes = {
-//   token: PropTypes.string.isRequired,
-//   getList: PropTypes.func.isRequired,
-//   activeList: PropTypes.string.isRequired,
-//   postList: PropTypes.func.isRequired
-// };
+ActiveListSelector.propTypes = {
+  token: PropTypes.string.isRequired,
+  getList: PropTypes.func.isRequired,
+  activeList: PropTypes.string.isRequired,
+  postList: PropTypes.func.isRequired
+};
 
 export default ActiveListSelector;
