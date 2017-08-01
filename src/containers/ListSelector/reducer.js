@@ -1,9 +1,12 @@
-import { CREATE_LIST, SET_ACTIVE, INIT_LISTS } from './actions';
 import {
+  CREATE_LIST,
+  SET_ACTIVE,
+  INIT_LISTS,
   UPDATE_LIST_ITEM,
   CREATE_LIST_ITEM,
-  DELETE_LIST_ITEM
-} from '../List/action_types';
+  DELETE_LIST_ITEM,
+  REFRESH_LIST
+} from './action_types';
 
 const initialState = {
   lists: [],
@@ -30,10 +33,11 @@ export const listState = (state = initialState, action) => {
         ...state,
         activeList: action.payload
       };
-    case 'REFRESH_LIST':
+    case REFRESH_LIST:
       return {
         ...state,
         activeList: {
+          ...state.activeList,
           list: action.payload
         }
       };

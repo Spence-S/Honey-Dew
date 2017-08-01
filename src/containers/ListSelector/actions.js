@@ -1,16 +1,5 @@
 import axios from 'axios';
-import * as ACTIONS from '../List/action_types';
-
-// types
-export const CREATE_LIST = 'CREATE_LIST';
-export const SET_ACTIVE = 'SET_ACTIVE';
-export const INIT_LISTS = 'INIT_LISTS';
-export const DELETE_TODO = 'DELETE_TODO';
-
-// other action creators needed
-
-// constants
-//const url='https://mighty-falls-76862.herokuapp.com/';
+import * as ACTIONS from './action_types';
 const url = process.env.REACT_APP_API_URL;
 
 //helper
@@ -19,30 +8,29 @@ const getHeader = getState => ({
 });
 
 // Create a new empty list in the applcation
-export const createList = list => {
+export const createListSuccess = list => {
   return {
-    type: CREATE_LIST,
+    type: ACTIONS.CREATE_LIST,
     payload: { list }
   };
 };
 
 // initialize the lists
 export const initLists = lists => {
-  console.log('lists from initLists', lists);
   return {
-    type: INIT_LISTS,
+    type: ACTIONS.INIT_LISTS,
     payload: lists
   };
 };
 
 // set activeList
-export const setActiveList = list => ({
-  type: SET_ACTIVE,
-  payload: list
+export const setActiveList = listItemWithList => ({
+  type: ACTIONS.SET_ACTIVE,
+  payload: listItemWithList
 });
 
 export const refreshList = list => ({
-  type: 'REFRESH_LIST',
+  type: ACTIONS.REFRESH_LIST,
   payload: list
 });
 
@@ -51,6 +39,17 @@ export const createListItemSuccess = todo => {
   return {
     type: ACTIONS.CREATE_LIST_ITEM,
     payload: { todo }
+  };
+};
+
+// update ListItem
+export const updateListItemSuccess = (listItem, index) => {
+  return {
+    type: ACTIONS.UPDATE_LIST_ITEM,
+    payload: {
+      index,
+      listItem
+    }
   };
 };
 
@@ -67,39 +66,36 @@ export const createList = name => async (dispatch, getState) => {
   const header = getHeader(getState);
   try {
     let res = await axios.post(`${url}/lists`, { name }, header);
-    dispatch(createList(res.data));
+    dispatch(createListSuccess(res.data));
   } catch (e) {
     console.log(e);
   }
 };
 
 export const readAllLists = () => async (dispatch, getState) => {
-  console.log('called get all lists');
   const header = getHeader(getState);
   try {
     let res = await axios.get(`${url}/lists`, header);
     dispatch(initLists(res.data));
-    console.log(
-      'conditional in get all lists',
-      getState().listState.activeList.name
-    );
     if (!getState().listState.activeList.name) {
-      dispatch(setActiveList(res.data[0]));
+      let list = await axios.get(`${url}/lists/${res.data[0]._id}`, header);
+      dispatch(setActiveList({ ...res.data[0], list: list.data.todos }));
     }
   } catch (e) {
     console.log(e);
   }
 };
 
+//
 export const readList = list => async (dispatch, getState) => {
   const header = getHeader(getState);
-  dispatch(setActiveList(list));
   try {
     let res = await axios.get(`${url}/lists/${list._id}`, header);
     res.data.todos = res.data.todos.map(todo => {
       return todo;
     });
-    return dispatch(refreshList(res.data.todos));
+    list.list = res.data.todos;
+    return dispatch(setActiveList(list));
   } catch (err) {
     // just log err for now TODO handle appropriatley
     console.log(err);
@@ -111,9 +107,8 @@ export const createListItem = (list, text) => async (dispatch, getState) => {
   const { _id } = list;
   const header = getHeader(getState);
   try {
-    console.log('sending POST to lists/:id');
     let res = await axios.post(`${url}/lists/${_id}`, { text }, header);
-    dispatch(createTodo(res.data.newTodo));
+    dispatch(createListItemSuccess(res.data.newTodo));
     let res2 = await axios.get(`${url}/lists`, header);
     dispatch(initLists(res2.data));
   } catch (e) {
@@ -132,6 +127,25 @@ export const deleteListItem = (listId, listItemId, index) => async (
     let res2 = await axios.get(`${url}/lists`, header);
     dispatch(initLists(res2.data));
   } catch (e) {
+    console.log(e);
+  }
+};
+
+export const updateListItem = (text, id, index) => async (
+  dispatch,
+  getState
+) => {
+  dispatch(updateListItemSuccess(text, index));
+  const header = getHeader(getState);
+  try {
+    let res = await axios.put(`${url}/lists/listitem/${id}`, { text }, header);
+    let todo = res.data;
+    dispatch(updateListItemSuccess(todo.text, index));
+  } catch (e) {
+    // if syncing did not occur, will handle errors at a later time
+    //
+    // TODO: handle errors better
+    //
     console.log(e);
   }
 };

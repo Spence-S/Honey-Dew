@@ -21,7 +21,7 @@ class ActiveListSelector extends Component {
         }
         key={index}
         onClick={() => {
-          this.props.readList(list);
+          this.props.readList(this.props.lists[index]);
         }}
       >
         {list.name} <span className="badge">{list.todoIds.length}</span>
@@ -42,10 +42,9 @@ class ActiveListSelector extends Component {
 }
 
 ActiveListSelector.propTypes = {
-  token: PropTypes.string.isRequired,
-  getList: PropTypes.func.isRequired,
-  activeList: PropTypes.string.isRequired,
-  postList: PropTypes.func.isRequired
+  lists: PropTypes.array.isRequired,
+  readList: PropTypes.func.isRequired,
+  activeList: PropTypes.string.isRequired
 };
 
 export default ActiveListSelector;
