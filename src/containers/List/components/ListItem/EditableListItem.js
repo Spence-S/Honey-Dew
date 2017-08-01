@@ -11,9 +11,9 @@ class EditableListItem extends Component {
   updateListItem = e => {
     e.preventDefault();
     this.props.updateListItem(
-      this.state.value
-      // this.props.id,
-      // this.props.index
+      this.state.value,
+      this.props.id,
+      this.props.index
     );
     this.props.showListItemView();
   };
@@ -39,7 +39,11 @@ class EditableListItem extends Component {
   render() {
     return (
       <li className="list-group-item">
-        <form onSubmit={this.updateListItem}>
+        <form
+          onSubmit={e => {
+            this.updateListItem(e);
+          }}
+        >
           <div className="input-group">
             <input
               className="form-control"
@@ -78,8 +82,8 @@ class EditableListItem extends Component {
 
 EditableListItem.propTypes = {
   id: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  text: PropTypes.string.isRequired,
   showListItemView: PropTypes.func,
   updateListItem: PropTypes.func
 };

@@ -1,6 +1,6 @@
-import ListSelector from './ListSelector';
+import ListSelectorContainer from './ListSelectorContainer';
 import * as listActions from './actions';
-export default ListSelector;
+export default ListSelectorContainer;
 
 export { listActions };
 

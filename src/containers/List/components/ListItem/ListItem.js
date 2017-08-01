@@ -15,7 +15,7 @@ class ListItem extends Component {
       return (
         <div>
           <EditableListItem
-            text={this.props.item}
+            text={this.props.currentText}
             showListItemView={() =>
               this.setState({ editable: !this.state.editable })}
             id={this.props.id}
@@ -28,14 +28,14 @@ class ListItem extends Component {
       return (
         <li className="list-group-item clearfix">
           <p>
-            {this.props.item}
+            {this.props.currentText}
           </p>
           <span
             className="fa fa-times pull-right"
             onClick={() =>
               this.props.deleteListItem(
-                // this.props.listId,
-                // this.props.id,
+                this.props.listId,
+                this.props.id,
                 this.props.index
               )}
             style={{ marginLeft: 10 }}
@@ -53,7 +53,12 @@ class ListItem extends Component {
 }
 
 ListItem.propTypes = {
-  deleteListItem: PropTypes.func
+  deleteListItem: PropTypes.func.isRequired,
+  updateListItem: PropTypes.func.isRequired,
+  listId: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
+  currentText: PropTypes.string
 };
 
 export default ListItem;

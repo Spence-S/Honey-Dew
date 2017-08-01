@@ -20,6 +20,7 @@ class ListForm extends Component {
           onSubmit={e => {
             e.preventDefault();
             this.props.createListItem(this.props.activeList, this.state.value);
+            this.setState({ value: '' });
           }}
         >
           <div className="form-group col-xs-12">

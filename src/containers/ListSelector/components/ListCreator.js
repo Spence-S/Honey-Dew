@@ -9,22 +9,23 @@ export default class ListCreator extends Component {
   render() {
     return (
       <div className="row">
-        <button
-          type="submit"
-          className="btn btn-inverse"
-          onClick={() => {
-            this.props.createList(this.state.value);
-            this.setState({ value: '' });
-          }}
-        >
-          Add New List
-        </button>
-        <div className="col-xs-6">
-          <input
-            className="form-control"
-            type="text"
-            onChange={e => this.props.changeFormValue(e.target.value)}
-          />
+        <div className="col-xs-12">
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              this.props.createList(this.state.value);
+              this.setState({ value: '' });
+            }}
+          >
+            <button type="submit" className="btn btn-inverse">
+              Add New List
+            </button>
+            <input
+              className="form-control"
+              type="text"
+              onChange={e => this.setState({ value: e.target.value })}
+            />
+          </form>
         </div>
       </div>
     );

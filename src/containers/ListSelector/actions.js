@@ -135,6 +135,7 @@ export const updateListItem = (text, id, index) => async (
   try {
     let res = await axios.put(`${url}/lists/listitem/${id}`, { text }, header);
     let todo = res.data;
+    // if all went well, this action will fire but there will be no updates
     dispatch(updateListItemSuccess(todo.text, index));
   } catch (e) {
     // if syncing did not occur, will handle errors at a later time

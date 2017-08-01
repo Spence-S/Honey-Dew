@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 //redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -22,7 +22,7 @@ class ListSelector extends Component {
         <ListCreator createList={this.props.createList} />
         <ActiveListSelector
           lists={this.props.listState.lists}
-          activeList={this.props.listState.activeList.name}
+          activeList={this.props.listState.activeList}
           readList={this.props.readList}
           setActiveList={this.props.setActiveList}
         />
@@ -30,6 +30,13 @@ class ListSelector extends Component {
     );
   }
 }
+
+ListSelector.propTypes = {
+  listState: PropTypes.object.isRequired,
+  readList: PropTypes.func.isRequired,
+  setActiveList: PropTypes.func.isRequired,
+  createList: PropTypes.func.isRequired
+};
 
 const mapState = state => {
   return { ...state };

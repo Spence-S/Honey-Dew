@@ -30,7 +30,8 @@ class ListContainer extends Component {
 ListContainer.propTypes = {
   createListItem: PropTypes.func,
   updateListItem: PropTypes.func,
-  deleteListItem: PropTypes.func
+  deleteListItem: PropTypes.func,
+  listState: PropTypes.object
 };
 
 function mapDispatchToProps(dispatch) {

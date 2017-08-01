@@ -6,7 +6,8 @@ class ActiveListSelector extends Component {
     super(props);
     this.state = {
       lists: [],
-      value: ''
+      value: '',
+      showDelete: false
     };
   }
 
@@ -14,7 +15,7 @@ class ActiveListSelector extends Component {
     this.props.lists.map((list, index) =>
       <button
         className={
-          list.name === this.props.activeList
+          list._id === this.props.activeList._id
             ? 'btn btn-info btn-group'
             : 'btn btn-default btn-group'
         }
@@ -22,8 +23,15 @@ class ActiveListSelector extends Component {
         onClick={() => {
           this.props.readList(this.props.lists[index]);
         }}
+        onMouseEnter={() => {
+          this.setState({ showDelete: true });
+        }}
+        onMouseLeave={() => {
+          this.setState({ showDelete: false });
+        }}
       >
         {list.name} <span className="badge">{list.todoIds.length}</span>
+        {this.state.showDelete ? <span className="fa fa-times" /> : null}
       </button>
     );
 
@@ -43,7 +51,7 @@ class ActiveListSelector extends Component {
 ActiveListSelector.propTypes = {
   lists: PropTypes.array.isRequired,
   readList: PropTypes.func.isRequired,
-  activeList: PropTypes.string.isRequired
+  activeList: PropTypes.object.isRequired
 };
 
 export default ActiveListSelector;

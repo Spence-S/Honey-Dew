@@ -44,10 +44,17 @@ export const listState = (state = initialState, action) => {
       return {
         ...state,
         activeList: {
+          ...state.activeList,
           list: [
-            ...state.list.slice(0, action.payload.index),
-            { ...state.list[action.payload.index], text: action.payload.todo },
-            ...state.list.slice(action.payload.index + 1, state.list.length)
+            ...state.activeList.list.slice(0, action.payload.index),
+            {
+              ...state.activeList.list[action.payload.index],
+              text: action.payload.listItem
+            },
+            ...state.activeList.list.slice(
+              action.payload.index + 1,
+              state.activeList.list.length
+            )
           ]
         }
       };
@@ -55,9 +62,10 @@ export const listState = (state = initialState, action) => {
       return {
         ...state,
         activeList: {
+          ...state.activeList,
           list: [
-            ...state.list.slice(0, action.payload),
-            ...state.list.slice(action.payload + 1)
+            ...state.activeList.list.slice(0, action.payload),
+            ...state.activeList.list.slice(action.payload + 1)
           ]
         }
       };

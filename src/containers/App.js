@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import List from './List';
-import ListSelector from './ListSelector';
+import ListContainer from './List';
+import ListSelectorContainer from './ListSelector';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <ListSelector />
-        <List />
+        <ListSelectorContainer />
+        <ListContainer />
       </div>
     );
   }

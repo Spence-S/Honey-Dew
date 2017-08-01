@@ -1,2 +1,2 @@
-import List from './ListContainer';
-export default List;
+import ListContainer from './ListContainer';
+export default ListContainer;

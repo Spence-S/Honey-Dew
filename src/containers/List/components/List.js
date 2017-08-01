@@ -13,11 +13,12 @@ class List extends Component {
               return (
                 <ListItem
                   key={listItem._id}
-                  item={listItem.text}
+                  currentText={listItem.text}
                   id={listItem._id}
                   index={index}
                   updateListItem={this.props.updateListItem}
                   deleteListItem={this.props.deleteListItem}
+                  listId={this.props.activeList._id}
                 />
               );
             })}
@@ -30,6 +31,7 @@ class List extends Component {
 
 List.propTypes = {
   list: PropTypes.array.isRequired,
+  activeList: PropTypes.object.isRequired,
   showEditableListItem: PropTypes.bool,
   deleteListItem: PropTypes.func,
   updateListItem: PropTypes.func
