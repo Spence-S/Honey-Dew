@@ -29,16 +29,11 @@ export const setActiveList = listItemWithList => ({
   payload: listItemWithList
 });
 
-export const refreshList = list => ({
-  type: ACTIONS.REFRESH_LIST,
-  payload: list
-});
-
 // create a todo list
-export const createListItemSuccess = todo => {
+export const createListItemSuccess = listItem => {
   return {
     type: ACTIONS.CREATE_LIST_ITEM,
-    payload: { todo }
+    payload: { listItem }
   };
 };
 

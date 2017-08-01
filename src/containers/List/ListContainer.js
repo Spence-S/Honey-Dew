@@ -13,13 +13,14 @@ class ListContainer extends Component {
     return (
       <div>
         <ListForm
-          createListItem={listItemText =>
-            this.props.createListItem(listItemText)}
+          createListItem={this.props.createListItem}
+          activeList={this.props.listState.activeList}
         />
         <List
           list={this.props.listState.activeList.list}
           deleteListItem={this.props.deleteListItem}
           updateListItem={this.props.updateListItem}
+          activeList={this.props.listState.activeList}
         />
       </div>
     );

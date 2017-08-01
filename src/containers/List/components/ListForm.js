@@ -12,12 +12,14 @@ class ListForm extends Component {
   render() {
     return (
       <div>
-        <h1 className="fancy">Whatever Name</h1>
+        <h1 className="fancy">
+          {this.props.activeList.name}
+        </h1>
         <form
           className="row"
           onSubmit={e => {
             e.preventDefault();
-            this.props.createListItem(this.state.value);
+            this.props.createListItem(this.props.activeList, this.state.value);
           }}
         >
           <div className="form-group col-xs-12">
@@ -45,7 +47,8 @@ class ListForm extends Component {
 }
 
 ListForm.propTypes = {
-  createListItem: PropTypes.func
+  createListItem: PropTypes.func,
+  activeList: PropTypes.object
 };
 
 export default ListForm;
