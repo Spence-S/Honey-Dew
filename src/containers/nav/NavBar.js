@@ -32,6 +32,9 @@ class NavBar extends Component {
               <LinkContainer to="/TodoList">
                 <NavItem>TodoList</NavItem>
               </LinkContainer>
+              <LinkContainer to="/UserChat">
+                <NavItem>Chat</NavItem>
+              </LinkContainer>
               {this.props.authState.isLoggedIn
                 ? // Make logout logout immediately when logged in
                   <NavItem onClick={() => this.props.logoutThunk()}>

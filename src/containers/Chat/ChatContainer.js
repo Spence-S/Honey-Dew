@@ -3,11 +3,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as userListActions from './user_actions';
+import * as userListActions from './actions';
+
+import UserList from './components/UserList';
 
 class ChatContainer extends Component {
   render() {
-    return <div>Hello From Chat Container</div>;
+    return (
+      <div>
+        <UserList
+          userList={this.props.userListState.userList}
+          getUsers={this.props.getUsers}
+        />
+      </div>
+    );
   }
 }
 
