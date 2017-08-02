@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import * as userListActions from './user_actions';
+import PropTypes from 'prop-types';
 
 class UserList extends Component {
   componentDidMount = () => {
@@ -29,12 +26,9 @@ class UserList extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { ...state };
-}
+UserList.propTypes = {
+  userList: PropTypes.array,
+  getUsers: PropTypes.func
+};
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ ...userListActions }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserList);
+export default UserList;

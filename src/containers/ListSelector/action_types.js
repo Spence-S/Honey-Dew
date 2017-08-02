@@ -6,3 +6,4 @@ export const CREATE_LIST = 'CREATE_LIST';
 export const SET_ACTIVE = 'SET_ACTIVE';
 export const INIT_LISTS = 'INIT_LISTS';
 export const DELETE_TODO = 'DELETE_TODO';
+export const DELETE_LIST = 'DELETE_LIST';

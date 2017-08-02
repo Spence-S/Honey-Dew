@@ -52,6 +52,14 @@ class Main extends Component {
                   ? <Redirect to="/Auth" />
                   : <App />}
             />
+            <Route
+              exact
+              path="/UserChat"
+              render={() =>
+                !this.props.authState.isLoggedIn
+                  ? <Redirect to="/Auth" />
+                  : <UserList />}
+            />
             <Route path="/Auth" component={Auth} />
             <Route path="/Account" render={() => <Account {...this.props} />} />
           </div>

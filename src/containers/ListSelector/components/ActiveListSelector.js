@@ -1,38 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import ListSelectorItem from './ListSelectorItem';
+
 class ActiveListSelector extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lists: [],
-      value: '',
-      showDelete: false
+      value: ''
     };
   }
 
   renderLists = () =>
     this.props.lists.map((list, index) =>
-      <button
-        className={
-          list._id === this.props.activeList._id
-            ? 'btn btn-info btn-group'
-            : 'btn btn-default btn-group'
-        }
+      <ListSelectorItem
+        activeListId={this.props.activeList._id}
+        listSelectorItem={list}
+        list={list}
         key={index}
-        onClick={() => {
-          this.props.readList(this.props.lists[index]);
-        }}
-        onMouseEnter={() => {
-          this.setState({ showDelete: true });
-        }}
-        onMouseLeave={() => {
-          this.setState({ showDelete: false });
-        }}
-      >
-        {list.name} <span className="badge">{list.todoIds.length}</span>
-        {this.state.showDelete ? <span className="fa fa-times" /> : null}
-      </button>
+        readList={this.props.readList}
+        index={index}
+        lists={this.props.lists}
+      />
     );
 
   render() {
