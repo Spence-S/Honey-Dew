@@ -26,13 +26,11 @@ class UserChat extends Component {
     this.pubnub.init(this);
 
     this.pubnub.subscribe({
-      channels: [this.props.user._id],
-      //  callback: console.log(msg),
+      channels: [this.props.me._id],
       withPresence: true
     });
 
-    this.pubnub.getMessage(this.props.user._id, msg => {
-      console.log('state:', this.state.messages.concat(msg.message));
+    this.pubnub.getMessage(this.props.me._id, msg => {
       this.setState({ messages: this.state.messages.concat(msg.message) });
     });
 
@@ -40,12 +38,28 @@ class UserChat extends Component {
       this.pubnub.publish({
         message: {
           message: 'Ready to go with pubnub',
-          userId: this.props.user._id,
-          userName: this.props.user.userName
+          userId: this.props.me._id,
+          userName: this.props.me.firstName
         },
-        channel: this.props.user._id
+        channel: this.props.me._id
       });
     });
+
+    this.pubnub.history(
+      {
+        channel: this.props.me._id,
+        reverse: true, // Setting to true will traverse the time line in reverse starting with the oldest message first.
+        count: 100, // how many items to fetch
+        stringifiedTimeToken: false // false is the default
+        //  start: '123123123123', // start time token to fetch
+        //  end: '123123123133' // end timetoken to fetch
+      },
+      function(status, response) {
+        // handle status, response
+        console.log('status', status);
+        console.log('response', response);
+      }
+    );
   };
   /*
   in user chat we publish to both the logged in users channel(our channel)
@@ -54,15 +68,28 @@ class UserChat extends Component {
   sent to us by every user. The UI actually seperates the messages out for the users.
   */
   publishMessage = () => {
+    // publish to user
     this.pubnub.publish({
       message: {
         message: this.state.value,
-        userName: this.props.user.userName,
-        userId: this.props.user._id
+        userName: this.props.me.firstName,
+        userId: this.props.me._id,
+        to: this.props.user._id
       },
-      // this prop is not available yet need to add it to global state
-      channels: [this.props.me._id, this.props.user._id]
+      channel: this.props.user._id
     });
+    // publish to myself
+    this.pubnub.publish({
+      message: {
+        message: this.state.value,
+        userName: this.props.me.firstName,
+        userId: this.props.me._id,
+        to: this.props.user._id
+      },
+      channel: this.props.me._id
+    });
+
+    this.setState({ value: '' });
   };
 
   render() {
@@ -79,14 +106,20 @@ class UserChat extends Component {
           </ControlLabel>
           <Panel>
             {this.state.messages.map((message, index) => {
-              return (
-                <Message
-                  message={message.message}
-                  userName={message.userName}
-                  userId={message.userId}
-                  key={index}
-                />
-              );
+              if (
+                message.to === this.props.user._id ||
+                message.userId === this.props.user._id
+              ) {
+                return (
+                  <Message
+                    message={message.message}
+                    userName={message.userName}
+                    userId={message.userId}
+                    myId={this.props.me._id}
+                    key={index}
+                  />
+                );
+              }
             })}
           </Panel>
         </FormGroup>
@@ -102,13 +135,14 @@ class UserChat extends Component {
 
   componentWillUnmount() {
     this.pubnub.unsubscribe({
-      channels: [this.props.user._id]
+      channels: [this.props.me._id]
     });
   }
 }
 
 UserChat.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object, // user that I am chatting with
+  me: PropTypes.object // my user information
 };
 
 export default UserChat;
