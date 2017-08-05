@@ -14,7 +14,7 @@ class UserList extends Component {
     this.props.userList.map((user, index) => {
       return (
         <UserListItem key={index} eventKey={index} userName={user.userName}>
-          <UserChat user={user} />
+          <UserChat user={user} me={this.props.me} />
         </UserListItem>
       );
     });

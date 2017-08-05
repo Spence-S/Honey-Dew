@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const Message = ({ userName, message }) =>
+const Message = ({ userName, message, userId }) =>
   <div className="row">
     <div
       className={
@@ -21,6 +21,7 @@ const Message = ({ userName, message }) =>
   </div>;
 
 Message.propTypes = {
+  userId: PropTypes.string.isRequired,
   userName: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired
 };

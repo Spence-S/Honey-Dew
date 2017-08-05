@@ -17,27 +17,52 @@ class UserChat extends Component {
     });
 
     this.state = {
-      messages: [
-        {
-          text: 'My first message',
-          user: 'me'
-        },
-        {
-          text: 'My first message',
-          user: this.props.user.userName
-        },
-        {
-          text: 'My second message',
-          user: 'me'
-        }
-      ]
+      messages: [],
+      value: ''
     };
   }
 
-  componentDidMount = () => {};
+  componentDidMount = () => {
+    this.pubnub.init(this);
 
-  publishToChannel = e => {
-    this.setState({ messages: this.state.messages.push({}) });
+    this.pubnub.subscribe({
+      channels: [this.props.user._id],
+      //  callback: console.log(msg),
+      withPresence: true
+    });
+
+    this.pubnub.getMessage(this.props.user._id, msg => {
+      console.log('state:', this.state.messages.concat(msg.message));
+      this.setState({ messages: this.state.messages.concat(msg.message) });
+    });
+
+    this.pubnub.getStatus(st => {
+      this.pubnub.publish({
+        message: {
+          message: 'Ready to go with pubnub',
+          userId: this.props.user._id,
+          userName: this.props.user.userName
+        },
+        channel: this.props.user._id
+      });
+    });
+  };
+  /*
+  in user chat we publish to both the logged in users channel(our channel)
+  and for each of the freinds or users or whatever list we have we also publish to their channel
+  channel. We only subscribe to our own channel, which contains ALL of the messages
+  sent to us by every user. The UI actually seperates the messages out for the users.
+  */
+  publishMessage = () => {
+    this.pubnub.publish({
+      message: {
+        message: this.state.value,
+        userName: this.props.user.userName,
+        userId: this.props.user._id
+      },
+      // this prop is not available yet need to add it to global state
+      channels: [this.props.me._id, this.props.user._id]
+    });
   };
 
   render() {
@@ -45,7 +70,7 @@ class UserChat extends Component {
       <form
         onSubmit={e => {
           e.preventDefault();
-          this.publishToChannel();
+          this.publishMessage();
         }}
       >
         <FormGroup controlId="formControlsTextarea">
@@ -56,8 +81,9 @@ class UserChat extends Component {
             {this.state.messages.map((message, index) => {
               return (
                 <Message
-                  message={message.text}
-                  userName={message.user}
+                  message={message.message}
+                  userName={message.userName}
+                  userId={message.userId}
                   key={index}
                 />
               );
@@ -66,6 +92,8 @@ class UserChat extends Component {
         </FormGroup>
         <FormControl
           id="formControlsText"
+          value={this.state.value}
+          onChange={e => this.setState({ value: e.target.value })}
           placeholder={`send ${this.props.user.userName} a message!`}
         />
       </form>
@@ -74,7 +102,7 @@ class UserChat extends Component {
 
   componentWillUnmount() {
     this.pubnub.unsubscribe({
-      channels: ['channel1']
+      channels: [this.props.user._id]
     });
   }
 }

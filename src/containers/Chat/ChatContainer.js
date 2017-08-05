@@ -14,6 +14,7 @@ class ChatContainer extends Component {
         <UserList
           userList={this.props.userListState.userList}
           getUsers={this.props.getUsers}
+          me={this.props.accountState}
         />
       </div>
     );
