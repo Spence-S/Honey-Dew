@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Accordion } from 'react-bootstrap';
-
 import UserListItem from './UserListItem';
-import UserChat from './UserChat';
 
 class UserList extends Component {
   componentDidMount = () => {
@@ -13,24 +10,29 @@ class UserList extends Component {
   renderUserList = () =>
     this.props.userList.map((user, index) => {
       return (
-        <UserListItem key={index} eventKey={index} userName={user.userName}>
-          <UserChat user={user} me={this.props.me} />
-        </UserListItem>
+        <UserListItem
+          key={index}
+          eventKey={index}
+          user={user}
+          me={this.props.me}
+          onSelect={this.handleSelect}
+        />
       );
     });
 
   render() {
     return (
-      <Accordion>
+      <div>
         {this.renderUserList()}
-      </Accordion>
+      </div>
     );
   }
 }
 
 UserList.propTypes = {
-  userList: PropTypes.array,
-  getUsers: PropTypes.func
+  userList: PropTypes.array.isRequired,
+  getUsers: PropTypes.func.isRequired,
+  me: PropTypes.object.isRequired
 };
 
 export default UserList;

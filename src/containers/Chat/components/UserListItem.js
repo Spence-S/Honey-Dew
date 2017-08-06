@@ -1,23 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Panel } from 'react-bootstrap';
+import UserChat from './UserChat';
 
 class UserListItem extends Component {
+  state = {
+    expanded: false
+  };
+
   render() {
     return (
       <Panel
-        header={this.props.userName}
-        eventKey={this.props.eventKey}
+        header={this.props.user.userName}
+        onEntering={this.toggleOpen}
+        onExited={this.toggleOpen}
+        expanded={this.state.expanded}
+        onClick={() => this.setState({ expanded: !this.state.expanded })}
         collapsible
       >
-        {this.props.children}
+        {this.state.expanded
+          ? <UserChat
+              messages={this.state.messages}
+              user={this.props.user}
+              me={this.props.me}
+            />
+          : null}
       </Panel>
     );
   }
 }
 
 UserListItem.propTypes = {
-  userName: PropTypes.string.isRequired
+  user: PropTypes.object.isRequired,
+  me: PropTypes.object.isRequired
 };
 
 export default UserListItem;

@@ -18,33 +18,20 @@ class UserChat extends Component {
 
     this.state = {
       messages: [],
-      value: ''
+      value: '',
+      expanded: false
     };
   }
 
   componentDidMount = () => {
     this.pubnub.init(this);
-
     this.pubnub.subscribe({
       channels: [this.props.me._id],
       withPresence: true
     });
-
     this.pubnub.getMessage(this.props.me._id, msg => {
       this.setState({ messages: this.state.messages.concat(msg.message) });
     });
-
-    this.pubnub.getStatus(st => {
-      this.pubnub.publish({
-        message: {
-          message: 'Ready to go with pubnub',
-          userId: this.props.me._id,
-          userName: this.props.me.firstName
-        },
-        channel: this.props.me._id
-      });
-    });
-
     this.pubnub.history(
       {
         channel: this.props.me._id,
@@ -55,18 +42,15 @@ class UserChat extends Component {
         //  end: '123123123133' // end timetoken to fetch
       },
       function(status, response) {
-        // handle status, response
-        console.log('status', status);
         console.log('response', response);
       }
     );
   };
-  /*
-  in user chat we publish to both the logged in users channel(our channel)
-  and for each of the freinds or users or whatever list we have we also publish to their channel
-  channel. We only subscribe to our own channel, which contains ALL of the messages
-  sent to us by every user. The UI actually seperates the messages out for the users.
-  */
+
+  changeVal = val => {
+    this.setState({ value: val });
+  };
+
   publishMessage = () => {
     // publish to user
     this.pubnub.publish({
@@ -120,13 +104,14 @@ class UserChat extends Component {
                   />
                 );
               }
+              return null;
             })}
           </Panel>
         </FormGroup>
         <FormControl
           id="formControlsText"
-          value={this.state.value}
-          onChange={e => this.setState({ value: e.target.value })}
+          value={this.props.value}
+          onChange={e => this.props.changeVal(e.target.value)}
           placeholder={`send ${this.props.user.userName} a message!`}
         />
       </form>
@@ -141,8 +126,10 @@ class UserChat extends Component {
 }
 
 UserChat.propTypes = {
-  user: PropTypes.object, // user that I am chatting with
-  me: PropTypes.object // my user information
+  user: PropTypes.object.isRequired, // user that I am chatting with
+  me: PropTypes.object.isRequired, // my user information
+  value: PropTypes.string,
+  changeVal: PropTypes.func
 };
 
 export default UserChat;
