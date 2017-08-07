@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { FormGroup, ControlLabel, FormControl, Panel } from 'react-bootstrap';
 import Message from './Message';
 import PropTypes from 'prop-types';
 import PubNubReact from 'pubnub-react';
 
-//pubnub
-//import PubNub from 'pubnub';
+const styles = {
+  chatHeight: {
+    height: '10rem',
+    overflow: 'scroll'
+  }
+};
 
 class UserChat extends Component {
   constructor(props) {
@@ -18,12 +23,21 @@ class UserChat extends Component {
 
     this.state = {
       messages: [],
-      value: '',
-      expanded: false
+      value: ''
     };
   }
 
+  scrollToBottom = () => {
+    const node = ReactDOM.findDOMNode(this.messagesEnd);
+    node.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
   componentDidMount = () => {
+    this.scrollToBottom();
     this.pubnub.init(this);
     this.pubnub.subscribe({
       channels: [this.props.me._id],
@@ -35,14 +49,16 @@ class UserChat extends Component {
     this.pubnub.history(
       {
         channel: this.props.me._id,
-        reverse: true, // Setting to true will traverse the time line in reverse starting with the oldest message first.
+        reverse: false, // Setting to true will traverse the time line in reverse starting with the oldest message first.
         count: 100, // how many items to fetch
         stringifiedTimeToken: false // false is the default
         //  start: '123123123123', // start time token to fetch
         //  end: '123123123133' // end timetoken to fetch
       },
-      function(status, response) {
+      (status, response) => {
         console.log('response', response);
+        const messages = response.messages.map(message => message.entry);
+        this.setState({ messages: [...messages] });
       }
     );
   };
@@ -88,7 +104,7 @@ class UserChat extends Component {
           <ControlLabel>
             Chat with {this.props.user.userName}
           </ControlLabel>
-          <Panel>
+          <Panel style={styles.chatHeight}>
             {this.state.messages.map((message, index) => {
               if (
                 message.to === this.props.user._id ||
@@ -106,12 +122,18 @@ class UserChat extends Component {
               }
               return null;
             })}
+            <div
+              style={{ float: 'left', clear: 'both' }}
+              ref={el => {
+                this.messagesEnd = el;
+              }}
+            />
           </Panel>
         </FormGroup>
         <FormControl
           id="formControlsText"
-          value={this.props.value}
-          onChange={e => this.props.changeVal(e.target.value)}
+          value={this.state.value}
+          onChange={e => this.setState({ value: e.target.value })}
           placeholder={`send ${this.props.user.userName} a message!`}
         />
       </form>
