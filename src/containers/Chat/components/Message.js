@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 const styles = {
   right: {
-    marginTop: '1.3rem',
+    marginTop: '.8rem',
     textAlign: 'right'
   },
   left: {
-    marginTop: '1.3rem',
+    marginTop: '.8rem',
     textAlign: 'left'
   },
   name: {
@@ -20,7 +20,7 @@ const styles = {
     border: '.001rem',
     borderRadius: '1.2rem',
     boxShadow: '.01rem .01rem',
-    width: '70%',
+    maxWidth: '70%',
     height: 'auto'
   }
 };

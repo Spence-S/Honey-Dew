@@ -28,8 +28,8 @@ class UserChat extends Component {
   }
 
   scrollToBottom = () => {
-    const node = ReactDOM.findDOMNode(this.messagesEnd);
-    node.scrollIntoView({ behavior: 'smooth' });
+    const box = ReactDOM.findDOMNode(this.messagesBox);
+    box.scrollTop = box.scrollHeight;
   };
 
   componentDidUpdate() {
@@ -104,7 +104,12 @@ class UserChat extends Component {
           <ControlLabel>
             Chat with {this.props.user.userName}
           </ControlLabel>
-          <Panel style={styles.chatHeight}>
+          <Panel
+            style={styles.chatHeight}
+            ref={el => {
+              this.messagesBox = el;
+            }}
+          >
             {this.state.messages.map((message, index) => {
               if (
                 message.to === this.props.user._id ||
@@ -122,12 +127,6 @@ class UserChat extends Component {
               }
               return null;
             })}
-            <div
-              style={{ float: 'left', clear: 'both' }}
-              ref={el => {
-                this.messagesEnd = el;
-              }}
-            />
           </Panel>
         </FormGroup>
         <FormControl

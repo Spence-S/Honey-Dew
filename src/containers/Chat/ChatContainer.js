@@ -10,7 +10,7 @@ import UserList from './components/UserList';
 class ChatContainer extends Component {
   render() {
     return (
-      <div>
+      <div className="col-xs-12 col-sm-offset-2 col-sm-9 col-md-offset-3 col-md-6 col-lg-4 col-lg-offset-4">
         <UserList
           userList={this.props.userListState.userList}
           getUsers={this.props.getUsers}

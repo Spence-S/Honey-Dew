@@ -7,18 +7,23 @@ class UserList extends Component {
     this.props.getUsers();
   };
 
-  renderUserList = () =>
-    this.props.userList.map((user, index) => {
-      return (
-        <UserListItem
-          key={index}
-          eventKey={index}
-          user={user}
-          me={this.props.me}
-          onSelect={this.handleSelect}
-        />
-      );
+  renderUserList = () => {
+    return this.props.userList.map((user, index) => {
+      if (user._id === this.props.me._id) {
+        return null;
+      } else {
+        return (
+          <UserListItem
+            key={index}
+            eventKey={index}
+            user={user}
+            me={this.props.me}
+            onSelect={this.handleSelect}
+          />
+        );
+      }
     });
+  };
 
   render() {
     return (
