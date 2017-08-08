@@ -2,30 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const styles = {
+  right: {
+    marginTop: '1.3rem',
+    textAlign: 'right'
+  },
+  left: {
+    marginTop: '1.3rem',
+    textAlign: 'left'
+  },
+  name: {
+    display: 'inline-block'
+  },
   message: {
-    marginTop: '2px',
-    borderRadius: '1rem'
+    display: 'inline-block',
+    marginLeft: '.5rem',
+    padding: '.5rem 1rem .5rem 1rem',
+    border: '.001rem',
+    borderRadius: '1.2rem',
+    boxShadow: '.01rem .01rem',
+    width: '70%',
+    height: 'auto'
   }
 };
 
 const Message = ({ userName, message, userId, myId }) =>
-  <div className="row">
+  <div style={userId === myId ? styles.right : styles.left}>
+    <div style={styles.name}>
+      {userId === myId ? null : userName + ': '}
+    </div>
     <div
+      className={userId === myId ? 'bg-info' : 'bg-success'}
       style={styles.message}
-      className={
-        userId !== myId
-          ? 'text-right bg-primary col-xs-offset-3 col-xs-9'
-          : 'bg-success col-xs-9'
-      }
     >
-      <div
-        style={styles.message}
-        className={
-          userName !== 'me' ? 'text-right col-xs-6' : 'text-left col-xs-6'
-        }
-      >
-        {userName}:{message}
-      </div>
+      {message}
     </div>
   </div>;
 

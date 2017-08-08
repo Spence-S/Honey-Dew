@@ -7,7 +7,7 @@ import PubNubReact from 'pubnub-react';
 
 const styles = {
   chatHeight: {
-    height: '10rem',
+    height: '20rem',
     overflow: 'scroll'
   }
 };
