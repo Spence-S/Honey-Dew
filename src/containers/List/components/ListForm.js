@@ -14,6 +14,12 @@ class ListForm extends Component {
       <div>
         <h1 className="fancy">
           {this.props.activeList.name}
+          <button
+            className="btn btn-danger btn-xs pull-right"
+            onClick={() => this.props.deleteList(this.props.activeList._id)}
+          >
+            delete list
+          </button>
         </h1>
         <form
           className="row"

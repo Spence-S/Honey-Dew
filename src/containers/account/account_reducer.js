@@ -3,7 +3,8 @@ const initialState = {
   lastName: '',
   email: '',
   picture: '',
-  facebook: {}
+  facebook: {},
+  _id: ''
 };
 
 export const accountState = function accountState(
@@ -38,7 +39,8 @@ export const accountState = function accountState(
         firstName:
           action.payload.user.firstName ||
           action.payload.user.email[0].email.split('@')[0],
-        lastName: action.payload.user.lastName
+        lastName: action.payload.user.lastName,
+        _id: action.payload.user._id
         //picture: action.payload.user.image.url
       };
     default:

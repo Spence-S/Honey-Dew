@@ -11,7 +11,7 @@ import { ConnectedRouter } from 'react-router-redux';
 // Components
 import LandingPage from './LandingPage';
 import Auth from './auth/';
-// import TodoList from './todos';
+import ChatContainer from './Chat';
 import Account from './account';
 import Flash from './flash';
 import App from './App';
@@ -51,6 +51,14 @@ class Main extends Component {
                 !this.props.authState.isLoggedIn
                   ? <Redirect to="/Auth" />
                   : <App />}
+            />
+            <Route
+              exact
+              path="/UserChat"
+              render={() =>
+                !this.props.authState.isLoggedIn
+                  ? <Redirect to="/Auth" />
+                  : <ChatContainer />}
             />
             <Route path="/Auth" component={Auth} />
             <Route path="/Account" render={() => <Account {...this.props} />} />

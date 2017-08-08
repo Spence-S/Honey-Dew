@@ -15,6 +15,7 @@ class ListContainer extends Component {
         <ListForm
           createListItem={this.props.createListItem}
           activeList={this.props.listState.activeList}
+          deleteList={this.props.deleteList}
         />
         <List
           list={this.props.listState.activeList.list}

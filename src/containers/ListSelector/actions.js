@@ -56,6 +56,8 @@ export const deleteListItemSuccess = index => {
   };
 };
 
+export const deleteListSuccess = index => {};
+
 // Send the post request to make the new list on the backend
 export const createList = name => async (dispatch, getState) => {
   const header = getHeader(getState);
@@ -143,5 +145,19 @@ export const updateListItem = (text, id, index) => async (
     // TODO: handle errors better
     //
     console.log(e);
+  }
+};
+
+export const deleteList = listId => async (dispatch, getState) => {
+  const header = getHeader(getState);
+  const index = getState().listState.lists.findIndex(list => {
+    return list._id === listId;
+  });
+  try {
+    await axios.delete(`${url}/lists/${listId}`, header);
+    dispatch(readAllLists());
+    dispatch(readList(getState().listState.lists[index - 1]));
+  } catch (err) {
+    //console.log(err);
   }
 };

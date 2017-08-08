@@ -2,6 +2,7 @@ import {
   CREATE_LIST,
   SET_ACTIVE,
   INIT_LISTS,
+  DELETE_LIST,
   UPDATE_LIST_ITEM,
   CREATE_LIST_ITEM,
   DELETE_LIST_ITEM
@@ -21,6 +22,14 @@ export const listState = (state = initialState, action) => {
       return {
         ...state,
         lists: [...state.lists, action.payload.list]
+      };
+    case DELETE_LIST:
+      return {
+        ...state,
+        lists: [
+          ...state.lists.slice(0, action.payload),
+          ...state.lists.slice(action.payload + 1)
+        ]
       };
     case INIT_LISTS:
       return {

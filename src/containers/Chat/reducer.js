@@ -1,6 +1,4 @@
-import * as userListActions from './user_actions';
-
-const { SET_USERS } = userListActions;
+import { SET_USERS } from './action_types';
 
 const initialState = {
   userList: []

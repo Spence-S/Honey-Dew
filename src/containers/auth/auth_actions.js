@@ -89,3 +89,5 @@ export const logoutThunk = data => async (dispatch, getState) => {
     dispatch(logout());
   }
 };
+
+//http://jsbin.com/qalubawama/edit?js,console

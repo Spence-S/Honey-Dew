@@ -5,7 +5,7 @@ import { flashState } from './containers/flash';
 import { accountState } from './containers/account';
 import { authActions } from './containers/auth';
 // import { listsState } from './containers/manager';
-import { userListState } from './containers/userList/users_reducer';
+import { userListState } from './containers/Chat';
 import { listState } from './containers/ListSelector';
 // from libraries
 import { combineReducers } from 'redux';
